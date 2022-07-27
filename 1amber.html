@@ -14,43 +14,33 @@
 		<button onclick="upload()">Upload</button>
 		<br>
 		<br>
+		Destination :
+		<!-- <form name="myForm"> -->
+		<input type="button" id="destination" value="H0" onclick="HProcess()" />
+		<input type="button" id="destination" value="H1" onclick="HProcess()" />
+		<input type="button" id="destination" value="H2" onclick="HProcess()" />
+		<input type="button" id="destination" value="H3" onclick="HProcess()" />
+		<input type="button" id="destination" value="H4" onclick="HProcess()" />
+		<input type="button" id="destination" value="H5" onclick="HProcess()" />
+		<input type="button" id="destination" value="H6" onclick="HProcess()" />
+		<input type="button" id="destination" value="H7" onclick="HProcess()" />
+		<input type="button" id="destination" value="H8" onclick="HProcess()" />
+		<input type="button" id="destination" value="H9" onclick="HProcess()" />
+		<!-- </form> -->
 
-	<!-- <input type="file" id="holdLoad" />
-	<input type="button" id="destination" value="DEST " />  :
-	<button name="subject" id="destination" type="submit" value="H0" onclick="HProcess()"> H0 </button>
-	<button name="subject" id="destination" type="submit" value="H1" onclick="HProcess()"> H1 </button>
-	<input type="button" id="destination" value="H0" onclick="HProcess()" />
-	<input type="button" id="destination" value="H1" onclick="HProcess()" />
-	<input type="button" id="destination" value="H2" onclick="HProcess()" />
-	<input type="button" id="destination" value="H3" onclick="HProcess()" />
-	<input type="button" id="destination" value="H4" onclick="HProcess()" />
-	<input type="button" id="destination" value="H5" onclick="HProcess()" />
-	<input type="button" id="destination" value="H6" onclick="HProcess()" />
-	<input type="button" id="destination" value="H7" onclick="HProcess()" />
-	<input type="button" id="destination" value="H8" onclick="HProcess()" />
-	<input type="button" id="destination" value="H9" onclick="HProcess()" />
-	<button name="subject" type="submit" value="fav_CSS">CSS</button> -->
-
-	Change destination :
-	<!-- <button name="subject" type="submit" id="destination" value="H1" onclick="HProcess()" >Cale 1</button> -->
-	<!-- <button name="subject" type="submit" id="destination" value="H2" onclick="HProcess()" >Cale 2</button> -->
-	<input type="button" value="H1" id="myButton1" onclick="HProcess()> </input>
-
-
+<!--
 	<br><br>
 	DESTINATION EN COURS
 	<p id = "destination"></p>
-	<br><br>
+	<br><br> -->
 
-		<!-- table to display the excel data -->
-		<table id="display_excel_data" border="1"></table>
-		<script>
+	<!-- table to display the excel data -->
+	<table id="display_excel_data" border="1"></table>
+	<script>
 
 			function HProcess() {
-				//var valdest = document.getElementById("destination").value;
-				//document.getElementById("destination").innerHTML = valdest;
-				var valdest document.getElementById("myButton1").value="Cale 1";
-				// alert(hprocess);
+				var valdest = document.getElementById('destination').value;
+				alert(valdest);
 			}
 
 			// Method to upload a valid excel file
