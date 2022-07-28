@@ -4,7 +4,7 @@
 
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Excel to HTML Table | Javacodepoint</title>
+		<title>Excel to HTML Table</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
 	</head>
 
@@ -16,18 +16,18 @@
 		<br>
 		<br>
 		Destination :
-		<!-- <form name="myForm"> -->
-		<input type="button" id="destination" value="H0" onclick="HProcess()" />
-		<input type="button" id="destination" value="H1" onclick="HProcess()" />
-		<input type="button" id="destination" value="H2" onclick="HProcess()" />
-		<input type="button" id="destination" value="H3" onclick="HProcess()" />
-		<input type="button" id="destination" value="H4" onclick="HProcess()" />
-		<input type="button" id="destination" value="H5" onclick="HProcess()" />
-		<input type="button" id="destination" value="H6" onclick="HProcess()" />
-		<input type="button" id="destination" value="H7" onclick="HProcess()" />
-		<input type="button" id="destination" value="H8" onclick="HProcess()" />
-		<input type="button" id="destination" value="H9" onclick="HProcess()" />
-		<!-- </form> -->
+		<form>
+		<input type="button" id="destination" value="H0" onclick="HProcess(0)" />
+		<input type="button" id="destination" value="H1" onclick="HProcess(1)" />
+		<input type="button" id="destination" value="H2" onclick="HProcess(2)" />
+		<input type="button" id="destination" value="H3" onclick="HProcess(3)" />
+		<input type="button" id="destination" value="H4" onclick="HProcess(4)" />
+		<input type="button" id="destination" value="H5" onclick="HProcess(5)" />
+		<input type="button" id="destination" value="H6" onclick="HProcess(6)" />
+		<input type="button" id="destination" value="H7" onclick="HProcess(7)" />
+		<input type="button" id="destination" value="H8" onclick="HProcess(8)" />
+		<input type="button" id="destination" value="H9" onclick="HProcess(9)" />
+		</form>
 
 <!--
 	<br><br>
@@ -39,8 +39,8 @@
 	<table id="display_excel_data" border="1"></table>
 	<script>
 
-			function HProcess() {
-				var valdest = document.getElementById('destination').value;
+			function HProcess(x) {
+				var valdest = x;
 				alert(valdest);
 			}
 
@@ -57,7 +57,7 @@
 						//Here calling another method to read excel file into json
 						excelFileToJSON(files[0]);
 				}else{
-						alert("Please select a valid excel file.");
+					alert("Please select a valid excel file.");
 				}
 			}
 
@@ -70,7 +70,7 @@
 
 								var data = e.target.result;
 								var workbook = XLSX.read(data, {
-										type : 'binary'
+									type : 'binary'
 								});
 								var result = {};
 								var firstSheetName = workbook.SheetNames[0];
@@ -80,7 +80,7 @@
 								displayJsonToHtmlTable(jsonData);
 								}
 						}catch(e){
-								console.error(e);
+							console.error(e);
 						}
 			}
 
