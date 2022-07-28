@@ -28,7 +28,7 @@
 		<button onclick="upload()">Upload</button>
 		<br>
 		<br>
-		Destination :
+
 		<!-- <form> -->
 		<input type="button" class="destination" value="H0" />
 		<input type="button" class="destination" value="H1" />
@@ -42,11 +42,9 @@
 		<input type="button" class="destination" value="H9" />
 		<!-- </form> -->
 
-<!--
 	<br><br>
-	DESTINATION EN COURS
-	<p id = "destination"></p>
-	<br><br> -->
+	DESTINATION EN COURS : <p id="choixdestination"></p>
+	<br><br>
 
 	<!-- table to display the excel data -->
 	<table id="display_excel_data" border="1"></table>
@@ -54,7 +52,8 @@
 
 			function HProcess(x) {
 				var valdest = x.target.value;
-				alert(valdest);
+				confirm(valdest);
+				document.getElementById("choixdestination").innerHTML = valdest;
 			}
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
 				i.addEventListener("click", HProcess);
@@ -108,9 +107,11 @@
 						for(var i=0;i<jsonData.length;i++){
 								var row=jsonData[i];
 								htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
-											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td><td>'+row["Destination"]+'</td></tr>';
+											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
+											+'</td><td>'+row["Destination"]+'</td></tr>';
 						}
 						table.innerHTML=htmlData;
+						// console.log(htmlData)
 				}else{
 						table.innerHTML='There is no data in Excel';
 				}
