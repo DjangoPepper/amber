@@ -6,28 +6,41 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Excel to HTML Table</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+		<style>
+			table, td, th {
+			border: 1px solid;
+			border-collapse: collapse;
+			}
+			td , th {
+			padding: 5px;
+			width: 100px;
+			}
+			th {
+			background-color: lightgreen;
+			}
+		</style>
 	</head>
 
 	<body>
-		<h1>Upload an excel file to display in HTML Table</h1>
+		<h1>Upload an excel file to display and work with this HTML Table</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
 		<button onclick="upload()">Upload</button>
 		<br>
 		<br>
 		Destination :
-		<form>
-		<input type="button" id="destination" value="H0" onclick="HProcess(0)" />
-		<input type="button" id="destination" value="H1" onclick="HProcess(1)" />
-		<input type="button" id="destination" value="H2" onclick="HProcess(2)" />
-		<input type="button" id="destination" value="H3" onclick="HProcess(3)" />
-		<input type="button" id="destination" value="H4" onclick="HProcess(4)" />
-		<input type="button" id="destination" value="H5" onclick="HProcess(5)" />
-		<input type="button" id="destination" value="H6" onclick="HProcess(6)" />
-		<input type="button" id="destination" value="H7" onclick="HProcess(7)" />
-		<input type="button" id="destination" value="H8" onclick="HProcess(8)" />
-		<input type="button" id="destination" value="H9" onclick="HProcess(9)" />
-		</form>
+		<!-- <form> -->
+		<input type="button" class="destination" value="H0" />
+		<input type="button" class="destination" value="H1" />
+		<input type="button" class="destination" value="H2" />
+		<input type="button" class="destination" value="H3" />
+		<input type="button" class="destination" value="H4" />
+		<input type="button" class="destination" value="H5" />
+		<input type="button" class="destination" value="H6" />
+		<input type="button" class="destination" value="H7" />
+		<input type="button" class="destination" value="H8" />
+		<input type="button" class="destination" value="H9" />
+		<!-- </form> -->
 
 <!--
 	<br><br>
@@ -40,9 +53,12 @@
 	<script>
 
 			function HProcess(x) {
-				var valdest = x;
+				var valdest = x.target.value;
 				alert(valdest);
 			}
+			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
+				i.addEventListener("click", HProcess);
+			});
 
 			// Method to upload a valid excel file
 			function upload() {
