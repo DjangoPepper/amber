@@ -4,11 +4,11 @@
 
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Excel to HTML Table</title>
+		<title>XLSX For pointeur </title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
 
 		<script>
-			function myFunction() {
+			function myFilerFunction() {
 			  // Declare variables
 			var input, filter, table, tr, td, i, txtValue;
 			input = document.getElementById("myInput");
@@ -32,23 +32,34 @@
 		</script>
 
 
-		<style>
-			table, td, th {
-			border: 1px solid;
-			border-collapse: collapse;
-			}
-			td , th {
-			padding: 5px;
-			width: 100px;
-			}
-			th {
-			background-color: lightgreen;
-			}
-		</style>
+<style>
+	table, td, th {
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+	td , th {
+		padding: 5px;
+		width: 100px;
+	}
+	th {
+		background-color: lightgreen;
+	}
+	#myInput {
+		background-image: url('/css/searchicon.png');
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		width: 40%;
+		font-size: 16px;
+		padding: 12px 20px 12px 40px;
+		border: 1px solid #ddd;
+		margin-bottom: 12px;
+	}
+
+</style>
 	</head>
 
 	<body>
-		<h1>Upload an excel file to display and work with this HTML Table</h1>
+		<h1>Upload an excel file to work on shores</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
 		<button onclick="upload()">Upload</button>
@@ -69,11 +80,16 @@
 		<!-- </form> -->
 
 	<br><br>
-	DESTINATION EN COURS : <p id="choixdestination"></p>
+	DESTINATION EN COURS : <h2 id="choixdestination"</h2>
 	<br><br>
+
+	<h1>My Customers</h1>
+	<input type="text" id="myInput" onkeyup="myFilerFunction()" placeholder="Search for parts.." title="Type in a piece of your search">
+
 
 	<!-- table to display the excel data -->
 	<table id="display_excel_data" border="1"></table>
+
 	<script>
 
 			function HProcess(x) {
@@ -142,6 +158,25 @@
 						table.innerHTML='There is no data in Excel';
 				}
 			}
-		</script>
+
+			function myFilerFunction() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTable");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
+	</script>
 	</body>
 </html>
