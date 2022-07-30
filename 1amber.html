@@ -13,7 +13,7 @@
 			var input, filter, table, tr, td, i, txtValue;
 			input = document.getElementById("myInput");
 			filter = input.value.toUpperCase();
-			table = document.getElementById("myTable");
+			table = document.getElementById("display_excel_data");
 			tr = table.getElementsByTagName("tr");
 
 			// Loop through all table rows, and hide those who don't match the search query
@@ -45,7 +45,7 @@
 		background-color: lightgreen;
 	}
 	#myInput {
-		background-image: url('/css/searchicon.png');
+		background-image: url('./searchicon.png');
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
 		width: 40%;
@@ -83,8 +83,8 @@
 	DESTINATION EN COURS : <h2 id="choixdestination"</h2>
 	<br><br>
 
-	<h1>My Customers</h1>
-	<input type="text" id="myInput" onkeyup="myFilerFunction()" placeholder="Search for parts.." title="Type in a piece of your search">
+	<h1>My Référence Parts</h1>
+	<input type="text" id="myInput" onkeyup="myFilerFunction()" placeholder="Search for parts.." title="Type in something">
 
 
 	<!-- table to display the excel data -->
@@ -163,7 +163,7 @@
 				var input, filter, table, tr, td, i, txtValue;
 				input = document.getElementById("myInput");
 				filter = input.value.toUpperCase();
-				table = document.getElementById("myTable");
+				table = document.getElementById("display_excel_data");
 				tr = table.getElementsByTagName("tr");
 				for (i = 0; i < tr.length; i++) {
 					td = tr[i].getElementsByTagName("td")[0];
