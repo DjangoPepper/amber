@@ -7,7 +7,7 @@
 		<title>XLSX For pointeur </title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
 
-		<script>
+		<!-- <script>
 			function myFilerFunction() {
 			  // Declare variables
 			var input, filter, table, tr, td, i, txtValue;
@@ -29,7 +29,7 @@
 				}
 			}
 			}
-		</script>
+		</script> -->
 
 
 <style>
@@ -166,7 +166,7 @@
 				table = document.getElementById("display_excel_data");
 				tr = table.getElementsByTagName("tr");
 				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[0];
+					td = tr[i].getElementsByTagName("td")[1];
 					if (td) {
 						txtValue = td.textContent || td.innerText;
 						if (txtValue.toUpperCase().indexOf(filter) > -1) {
