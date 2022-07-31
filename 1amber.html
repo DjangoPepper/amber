@@ -23,7 +23,7 @@
 		background-image: url('./searchicon.png');
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
-		width: 28%;
+		width: 12%;
 		font-size: 16px;
 		padding: 12px 20px 12px 40px;
 		border: 1px solid #ddd;
@@ -54,7 +54,6 @@
 
 		<br><br>
 		<h1>Destination : <h1 id="choixdestination"</h1>
-		
 		<br><br>
 
 		<h1>Search
@@ -67,6 +66,14 @@
 
 		<script>
 			var valdest = "";
+			var fileSelected = false;
+
+			function sumStock(){
+				var sumTable=document.getElementById("display_excel_data");
+				var res = sumTable.map(sumTable => sumTable.Position).reduce((acc, sumTable) => sumTable + acc);
+				console.log(res);
+			}
+
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
@@ -86,10 +93,14 @@
 
 			function valideDestination(x) {
 				//var valdest = x.target.value;
-				valdest = x.target.value;
-				confirm(valdest);
-				document.getElementById("choixdestination").innerHTML = valdest;
+				sumStock();
 				upload();
+				if ( fileSelected == true) {
+					valdest = x.target.value;
+					confirm(valdest);
+					document.getElementById("choixdestination").innerHTML = valdest;
+					//upload();
+				}
 			}
 
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
@@ -108,6 +119,7 @@
 				if (extension == '.XLS' || extension == '.XLSX') {
 						//Here calling another method to read excel file into json
 						excelFileToJSON(files[0]);
+						fileSelected = true;
 				}else{
 					alert("Please select a valid excel file.");
 				}
@@ -140,9 +152,7 @@
 			function displayJsonToHtmlTable(jsonData){
 				var table=document.getElementById("display_excel_data");
 				if(jsonData.length>0){
-
-					// <th onclick="sortTable(0)">Name</th>
-
+						// <th onclick="sortTable(0)">Name</th>
 						var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 						for(var i=0;i<jsonData.length;i++){
 								var row=jsonData[i];
