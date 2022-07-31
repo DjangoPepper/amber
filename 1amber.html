@@ -34,33 +34,31 @@
 	</head>
 
 	<body>
-		<h1>Upload an excel file to work on shores</h1>
+		<h1>Upload excel file to work</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
-		<button onclick="upload()">Upload</button>
+		<!-- <button onclick="upload()">Upload</button> -->
 		<br>
 		<br>
 
-		<!-- <form> -->
-		<input type="button" class="destination" value="H0" />
-		<input type="button" class="destination" value="H1" />
-		<input type="button" class="destination" value="H2" />
-		<input type="button" class="destination" value="H3" />
-		<input type="button" class="destination" value="H4" />
-		<input type="button" class="destination" value="H5" />
-		<input type="button" class="destination" value="H6" />
-		<input type="button" class="destination" value="H7" />
-		<input type="button" class="destination" value="H8" />
-		<input type="button" class="destination" value="H9" />
-		<!-- </form> -->
+		<input type="button" class="destination" value="H0" onclick="upload()"/>
+		<input type="button" class="destination" value="H1" onclick="upload()" />
+		<input type="button" class="destination" value="H2" onclick="upload()"/>
+		<input type="button" class="destination" value="H3" onclick="upload()"/>
+		<input type="button" class="destination" value="H4" onclick="upload()"/>
+		<input type="button" class="destination" value="H5" onclick="upload()"/>
+		<input type="button" class="destination" value="H6" onclick="upload()"/>
+		<input type="button" class="destination" value="H7" onclick="upload()"/>
+		<input type="button" class="destination" value="H8" onclick="upload()"/>
+		<input type="button" class="destination" value="H9" onclick="upload()"/>
 
 		<br><br>
-		<h1>DESTINATION EN COURS : <h1 id="choixdestination"</h1>
-		</h1>
+		<h1>Destination : <h1 id="choixdestination"</h1>
+		
 		<br><br>
 
 		<h1>Search
-		<input type="text" id="myInput" onkeyup="myFilerFunction()" placeholder="Search for Something.." title="Type in something">
+		<input type="text" id="myInput" onkeyup="myFilterFunction()" placeholder="Search for Something.." title="Type in something">
 		</h1>
 
 
@@ -68,6 +66,7 @@
 		<table id="display_excel_data" border="1"></table>
 
 		<script>
+			var valdest = "";
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
@@ -85,14 +84,16 @@
 				})));
 			}
 
-			function HProcess(x) {
-				var valdest = x.target.value;
+			function valideDestination(x) {
+				//var valdest = x.target.value;
+				valdest = x.target.value;
 				confirm(valdest);
 				document.getElementById("choixdestination").innerHTML = valdest;
+				upload();
 			}
 
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
-				i.addEventListener("click", HProcess);
+				i.addEventListener("click", valideDestination);
 			});
 
 			// Method to upload a valid excel file
@@ -156,7 +157,7 @@
 				}
 			}
 
-			function myFilerFunction() {
+			function myFilterFunction() {
 						var input, filter, table, tr, td, i, txtValue;
 						input = document.getElementById("myInput");
 						filter = input.value.toUpperCase();
