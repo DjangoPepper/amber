@@ -1,4 +1,4 @@
-var bills = [
+var table = [
   {
     "Rang": 1,
     "Référence": "2021R123",
@@ -44,9 +44,9 @@ var bills = [
 ];
 
 
-var result = bills.reduce(function(_this, val)
+var result = table.reduce(function(_this, val)
   {return _this + val.Poids}
   , 0);
 
 console.log(result)
-//61050 answer
+//99 answer

@@ -3,7 +3,7 @@ node_modules
 .gitignore
 .vscode/launch.json
 cerise.html
-cerise.js
+
 cerise.json
 package-lock.json
 package.json
