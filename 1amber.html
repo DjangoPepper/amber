@@ -37,24 +37,33 @@
 		<h1>Upload excel file to work</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
-		<!-- <button onclick="upload()">Upload</button> -->
-		<br>
-		<br>
-
-		<input type="button" class="destination" value="H0" onclick="upload()"/>
-		<input type="button" class="destination" value="H1" onclick="upload()" />
-		<input type="button" class="destination" value="H2" onclick="upload()"/>
-		<input type="button" class="destination" value="H3" onclick="upload()"/>
-		<input type="button" class="destination" value="H4" onclick="upload()"/>
-		<input type="button" class="destination" value="H5" onclick="upload()"/>
-		<input type="button" class="destination" value="H6" onclick="upload()"/>
-		<input type="button" class="destination" value="H7" onclick="upload()"/>
-		<input type="button" class="destination" value="H8" onclick="upload()"/>
-		<input type="button" class="destination" value="H9" onclick="upload()"/>
+		<button onclick="upload()">Upload</button>
 
 		<br><br>
-		<h1>Destination : <h1 id="choixdestination"</h1>
+		<input type="button" class="position" value="H0" onclick="validePosition()"/>
+		<input type="button" class="position" value="H1" onclick="validePosition()" />
+		<input type="button" class="position" value="H2" onclick="validePosition()"/>
+		<input type="button" class="position" value="H3" onclick="validePosition()"/>
+		<input type="button" class="position" value="H4" onclick="validePosition()"/>
+		<input type="button" class="position" value="H5" onclick="validePosition()"/>
+		<input type="button" class="position" value="H6" onclick="validePosition()"/>
+		<input type="button" class="position" value="H7" onclick="validePosition()"/>
+		<input type="button" class="position" value="H8" onclick="validePosition()"/>
+		<input type="button" class="position" value="H9" onclick="validePosition()"/>
+		<h1>Position : <h1 id="choixPosition"</h1>
 		<br><br>
+		<input type="button" class="destination" value="H0" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H1" onclick="valideDestination()" />
+		<input type="button" class="destination" value="H2" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H3" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H4" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H5" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H6" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H7" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H8" onclick="valideDestination()"/>
+		<input type="button" class="destination" value="H9" onclick="valideDestination()"/>
+		<h1>Destination : <h1 id="choixDestination"</h1>
+		<br>
 
 		<h1>Search
 		<input type="text" id="myInput" onkeyup="myFilterFunction()" placeholder="Search for Something.." title="Type in something">
@@ -65,12 +74,15 @@
 		<table id="display_excel_data" border="1"></table>
 
 		<script>
-			var valdest = "";
+			var valpos  = "";
+			var valdes = "";
+			var posSelected = false;
+			var desSelected = false;
 			var fileSelected = false;
 
 			function sumColumnStock(){
 				var table=document.getElementById("display_excel_data");
-				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdest;}).reduce(function(_this, val){return _this + val.poids}, 0);
+				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdes;}).reduce(function(_this, val){return _this + val.poids}, 0);
 				console.log(resultSumColumnStock);
 			}
 /*
@@ -80,6 +92,9 @@
 				console.log(res);
 			}
  */
+			function sumColumnDestination(){
+			}
+
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
@@ -97,18 +112,30 @@
 				})));
 			}
 
-			function valideDestination(x) {
-				//var valdest = x.target.value;
-				upload();
-				if ( fileSelected == true) {
-					valdest = x.target.value;
-					confirm(valdest);
-					document.getElementById("choixdestination").innerHTML = valdest;
-					//upload();
-				}
-				sumColumnStock();
+			function validePosition(w) {
+				//upload();
+				posSelected = true;
+				//if ( fileSelected == true) {
+					valpos = w.target.value;
+					confirm(valpos);
+					document.getElementById("choixPosition").innerHTML = valpos;
+				//}
+				//sumColumnDestination();
 			}
+			Array.from(document.getElementsByClassName("position")).forEach(function(j){
+				j.addEventListener("click", validePosition);
+			});
 
+			function valideDestination(x) {
+				upload();
+				desSelected = true;
+				if ( fileSelected == true) {
+					valdes = x.target.value;
+					confirm(valdes);
+					document.getElementById("choixDestination").innerHTML = valdes;
+				}
+				//sumColumnPosition();
+			}
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
 				i.addEventListener("click", valideDestination);
 			});
