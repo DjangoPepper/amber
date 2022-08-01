@@ -75,7 +75,7 @@
 
 		<script>
 			var valpos  = "";
-			var valdes = "";
+			var valdes  = "";
 			var posSelected = false;
 			var desSelected = false;
 			var fileSelected = false;
@@ -116,26 +116,28 @@
 				//upload();
 				posSelected = true;
 				//if ( fileSelected == true) {
-					valpos = w.target.value;
-					confirm(valpos);
-					document.getElementById("choixPosition").innerHTML = valpos;
+				valpos = w.target.value;
+				confirm(valpos);
+				document.getElementById("choixPosition").innerHTML = valpos;
 				//}
 				//sumColumnDestination();
 			}
+
 			Array.from(document.getElementsByClassName("position")).forEach(function(j){
 				j.addEventListener("click", validePosition);
 			});
 
 			function valideDestination(x) {
-				upload();
+				//upload();
 				desSelected = true;
-				if ( fileSelected == true) {
-					valdes = x.target.value;
-					confirm(valdes);
-					document.getElementById("choixDestination").innerHTML = valdes;
-				}
+				//if ( fileSelected == true) {
+				valdes = x.target.value;
+				confirm(valdes);
+				document.getElementById("choixDestination").innerHTML = valdes;
+				//}
 				//sumColumnPosition();
 			}
+
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
 				i.addEventListener("click", valideDestination);
 			});
