@@ -43,10 +43,21 @@ var table = [
   }
 ];
 
-
 var result = table.reduce(function(_this, val)
   {return _this + val.Poids}
   , 0);
-
 console.log(result)
 //99 answer
+
+
+var arrayVal = [
+  {id:"1", age: 20},
+  {id:"2", age: 30},
+  {id:"2", age: 20},
+  {id:"3", age: 20},
+  {id:"5", age: 10}
+];
+var result = arrayVal.filter(function (arrayVal) {
+  return arrayVal.id === "2";}).reduce(function(_this, val)
+  {return _this + val.age}    , 0);
+console.log(result);

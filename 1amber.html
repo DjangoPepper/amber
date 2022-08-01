@@ -68,12 +68,18 @@
 			var valdest = "";
 			var fileSelected = false;
 
+			function sumColumnStock(){
+				var table=document.getElementById("display_excel_data");
+				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdest;}).reduce(function(_this, val){return _this + val.poids}, 0);
+				console.log(resultSumColumnStock);
+			}
+/*
 			function sumStock(){
 				var sumTable=document.getElementById("display_excel_data");
 				var res = sumTable.map(sumTable => sumTable.Position).reduce((acc, sumTable) => sumTable + acc);
 				console.log(res);
 			}
-
+ */
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
@@ -93,7 +99,6 @@
 
 			function valideDestination(x) {
 				//var valdest = x.target.value;
-				sumStock();
 				upload();
 				if ( fileSelected == true) {
 					valdest = x.target.value;
@@ -101,6 +106,7 @@
 					document.getElementById("choixdestination").innerHTML = valdest;
 					//upload();
 				}
+				sumColumnStock();
 			}
 
 			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
