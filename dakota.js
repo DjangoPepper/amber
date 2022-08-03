@@ -1,7 +1,8 @@
+//Exemple somme meme id
 var arrayVal = [
     {id:"1", age: 20},
-    {id:"2", age: 30},
-    {id:"2", age: 20},
+    {id:"2", age: 32},
+    {id:"2", age: 23},
     {id:"3", age: 20},
     {id:"5", age: 10}
 ];
