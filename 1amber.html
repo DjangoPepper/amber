@@ -37,7 +37,7 @@
 		<h1>Upload excel file to work</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
-		<!-- <button onclick="upload()">Upload</button> -->
+		<button onclick="upload()">Upload</button>
 
 		<h1>Search
 		<input type="text" id="myInput" onkeyup="myFilterFunction()" placeholder="Search for Something.." title="Type in something">
@@ -68,8 +68,8 @@
 		<!-- table to display the excel data -->
 		<br><br>
 		<table id="display_excel_data" border="1"></table>
-		<span id="choix_Dep"></span>
-		<span id="choix_Des"></span>
+		DEP&nbsp : &nbsp<div id="choix_Dep"></div> 
+		DES&nbsp : &nbsp<div id="choix_Des"></div>
 
 		<script>
 			const btn_dep       = document.querySelector('#btndep');
@@ -77,37 +77,29 @@
 			const btn_des       = document.querySelector('#btndes');
 			const valeur_de_des = document.querySelector('#destination')
 
-			btn_des.onclick = (event) => {
-				event.preventDefault();
-				// show the selected index
-				//alert("Your depart      is : " + valeur_de_dep.selectedIndex);
-				//alert("Your btn_dep      is : " + btn_dep);
-				//alert("Your destination is : " + valeur_de_des.selectedIndex);
-				//alert("Your btn_des      is : " + btn_des);
-				upload();
-				valide_Dep();
-				valide_Des();
-
-				//sumCol_Dep();
-			};
 
 			var fileSelected = false;
-
 			var Selected_Dep = false;
 			var Selected_Des = false;
 			var value_Dep ="0";
 			var value_Des ="0";
 
+
+			btn_des.onclick = (event) => {
+				event.preventDefault();
+				//upload();
+				valide_Dep();
+				valide_Des();
+			};
+
 			function valide_Dep(x) {
 				//upload();
 				if ( fileSelected == true) {
 					Selected_Dep = true;
-					//value_Dep = x.target.value;
-					value_Dep = valeur_de_dep.selectedIndex
-					confirm("func valide_dep : " + value_Dep);
-					document.getElementById("choix_Dep").innerHTML = value_Dep;
+					//value_Dep = valeur_de_dep.selectedIndex
+					//confirm("func valide_dep : " + value_Dep);
+					document.getElementById("choix_Dep").innerHTML = valeur_de_dep.selectedIndex;
 				}
-				//sumColumnDestination();
 			}
 
 			Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
@@ -118,18 +110,17 @@
 				if ( fileSelected == true) {
 					Selected_Des = true
 					//value_Des = x.target.value;
-					value_Des = valeur_de_des.selectedIndex
-					confirm("func valide_des : " + value_Des);
-					document.getElementById("choix_Des").innerHTML = value_Des;
-					//upload();
+					// value_Des = valeur_de_des.selectedIndex
+					//confirm("func valide_des : " + value_Des);
+					document.getElementById("choix_Des").innerHTML = valeur_de_des.selectedIndex;
 				}
-				//sumColumnPosition();
 			}
 
 			Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
 				i.addEventListener("click", valide_Des);
 			});
 
+			/*
 			function sumCol_Dep(){
 				//input = document.getElementById("myInput");
 				caTaloG_sumCol_Dep = document.getElementById("display_excel_data");
@@ -139,7 +130,7 @@
 					);
 				confirm(result_sumCol_Dep);
 			}
-/*
+
 			function sumColumnStock(){
 				var table=document.getElementById("display_excel_data");
 				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdes;}).reduce(function(_this, val){return _this + val.poids}, 0);
@@ -151,10 +142,7 @@
 				var res = sumTable.map(sumTable => sumTable.Position).reduce((acc, sumTable) => sumTable + acc);
 				console.log(res);
 			}
-
-			function sumColumnDestination(){
-			}
-*/
+			*/
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
