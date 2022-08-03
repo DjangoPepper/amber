@@ -61,15 +61,17 @@
 				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
 				<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
 			</select>
-
+			&nbsp
 			<button id="btndes"> M.a.J </button>
 		</form>
 
 		<!-- table to display the excel data -->
 		<br><br>
 		<table id="display_excel_data" border="1"></table>
-		DEP&nbsp : &nbsp<div id="choix_Dep"></div> 
-		DES&nbsp : &nbsp<div id="choix_Des"></div>
+		<br>
+		DEP&nbsp : &nbsp<span id="choix_Dep"></span> Cumul :&nbsp <span id="sum_Dep"></span><
+		<br>
+		DES&nbsp : &nbsp<span id="choix_Des"></span> Cumul :&nbsp <span id="sum_Des"></span><
 
 		<script>
 			const btn_dep       = document.querySelector('#btndep');
@@ -77,14 +79,18 @@
 			const btn_des       = document.querySelector('#btndes');
 			const valeur_de_des = document.querySelector('#destination')
 
-
 			var fileSelected = false;
 			var Selected_Dep = false;
 			var Selected_Des = false;
 			var value_Dep ="0";
 			var value_Des ="0";
 
-
+			function filter_Col(colonne) {
+				const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+				const result = words.filter(word => word.length > 6);
+				console.log(result);
+				// expected output: Array ["exuberant", "destruction", "present"]
+			}
 			btn_des.onclick = (event) => {
 				event.preventDefault();
 				//upload();
@@ -123,7 +129,9 @@
 			/*
 			function sumCol_Dep(){
 				//input = document.getElementById("myInput");
+
 				caTaloG_sumCol_Dep = document.getElementById("display_excel_data");
+
 				var result_sumCol_Dep = caTaloG_sumCol_Dep.filter(function (caTaloG_sumCol_Dep) {
 					return caTaloG_sumCol_Dep.Position == valeur_de_dep;}).reduce(function(_this, vAl2)
 					{return _this + vAl2.Poids} , 0
