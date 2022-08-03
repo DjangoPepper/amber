@@ -37,7 +37,7 @@
 		<h1>Upload excel file to work</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
-		<button onclick="upload()">Upload</button>
+		<!-- <button onclick="upload()">Upload</button> -->
 
 		<h1>Search
 		<input type="text" id="myInput" onkeyup="myFilterFunction()" placeholder="Search for Something.." title="Type in something">
@@ -46,59 +46,89 @@
 		<form>
 			<label for="depart">Mouvement de </label>
 			<select id="depart">
-				<option value="0">Stock</option>
-				<option value="1">Hold1</option>
-				<option value="2">Hold2</option>
-				<option value="3">Hold3</option>
+				<option value="0" class="class_Dep" onclick="valide_Dep()">Stock</option>
+				<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
+				<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
+				<option value="3" class="class_Dep" onclick="valide_Dep()">Hold3</option>
 			</select>
-			<button id="btndep"> Save </button>
+
+			<!-- <button id="btndep"> Save </button> -->
 
 			<label for="destination"> vers </label>
 			<select id="destination">
-				<option value="0">Stock</option>
-				<option value="1">Cale1</option>
-				<option value="2">Cale2</option>
-				<option value="3">Cale3</option>
+				<option value="0" class="class-Des" onclick="valide_Des()">Stock</option>
+				<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
+				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
+				<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
 			</select>
+
 			<button id="btndes"> M.a.J </button>
 		</form>
 
-		<br>
-		Total coils <div valeur_de_dep></div> Nombre de coils
-		<br>
-		<input type="button" class="position" value="H8" onclick="validePosition()"/>
-		<input type="button" class="position" value="H9" onclick="validePosition()"/>
-		<h1>Pos : <h1 id="choixPosition"</h1>
-		<input type="button" class="destination" value="H8" onclick="valideDestination()"/>
-		<input type="button" class="destination" value="H9" onclick="valideDestination()"/>
-		<h1>Dest : <h1 id="choixDestination"</h1>
-		<br>
-
 		<!-- table to display the excel data -->
+		<br><br>
 		<table id="display_excel_data" border="1"></table>
-
+		<span id="choix_Dep"></span>
+		<span id="choix_Des"></span>
 
 		<script>
 			const btn_dep       = document.querySelector('#btndep');
 			const valeur_de_dep = document.querySelector('#depart')
 			const btn_des       = document.querySelector('#btndes');
 			const valeur_de_des = document.querySelector('#destination')
-			console.log(btn_dep);
-			console.log(valeur_de_dep);
 
 			btn_des.onclick = (event) => {
 				event.preventDefault();
 				// show the selected index
-				confirm(valeur_de_dep.selectedIndex);
-				sumCol_Dep();
+				//alert("Your depart      is : " + valeur_de_dep.selectedIndex);
+				//alert("Your btn_dep      is : " + btn_dep);
+				//alert("Your destination is : " + valeur_de_des.selectedIndex);
+				//alert("Your btn_des      is : " + btn_des);
+				upload();
+				valide_Dep();
+				valide_Des();
+
+				//sumCol_Dep();
 			};
 
-			var valpos  = "";
-			var valdes  = "";
-			var posSelected = false;
-			var desSelected = false;
 			var fileSelected = false;
-/*
+
+			var Selected_Dep = false;
+			var Selected_Des = false;
+			var value_Dep ="0";
+			var value_Des ="0";
+
+			function valide_Dep(x) {
+				//upload();
+				if ( fileSelected == true) {
+					Selected_Dep = true;
+					//value_Dep = x.target.value;
+					value_Dep = valeur_de_dep.selectedIndex
+					confirm("func valide_dep : " + value_Dep);
+					document.getElementById("choix_Dep").innerHTML = value_Dep;
+				}
+				//sumColumnDestination();
+			}
+
+			Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
+				j.addEventListener("click", valide_Dep);
+			});
+
+			function valide_Des(x) {
+				if ( fileSelected == true) {
+					Selected_Des = true
+					//value_Des = x.target.value;
+					value_Des = valeur_de_des.selectedIndex
+					confirm("func valide_des : " + value_Des);
+					document.getElementById("choix_Des").innerHTML = value_Des;
+					upload();
+				}
+				//sumColumnPosition();
+			}
+
+			Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
+				i.addEventListener("click", valide_Des);
+			});
 
 			function sumCol_Dep(){
 				//input = document.getElementById("myInput");
@@ -107,9 +137,9 @@
 					return caTaloG_sumCol_Dep.Position == valeur_de_dep;}).reduce(function(_this, vAl2)
 					{return _this + vAl2.Poids} , 0
 					);
-				console.log(result_sumCol_Dep);
+				confirm(result_sumCol_Dep);
 			}
-
+/*
 			function sumColumnStock(){
 				var table=document.getElementById("display_excel_data");
 				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdes;}).reduce(function(_this, val){return _this + val.poids}, 0);
@@ -125,54 +155,6 @@
 			function sumColumnDestination(){
 			}
 */
-			function sortTable(n){
-
-				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-
-				const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-					v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-					)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-
-				// do the work...
-				document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-					const table = th.closest('table');
-					Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-						.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-						.forEach(tr => table.appendChild(tr) );
-				})));
-			}
-
-			function validePosition(x) {
-				//upload();
-				posSelected = true;
-				//if ( fileSelected == true) {
-				valpos = x.target.value;
-				confirm(valpos);
-				document.getElementById("choixPosition").innerHTML = valpos;
-				//}
-				//sumColumnDestination();
-			}
-
-			Array.from(document.getElementsByClassName("position")).forEach(function(j){
-				j.addEventListener("click", validePosition);
-			});
-
-			function valideDestination(x) {
-				//upload();
-				desSelected = true;
-				//if ( fileSelected == true) {
-				valdes = x.target.value;
-				confirm(valdes);
-				document.getElementById("choixDestination").innerHTML = valdes;
-				//}
-				//sumColumnPosition();
-			}
-
-			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
-				i.addEventListener("click", valideDestination);
-			});
-
-
 			function sortTable(n){
 
 				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
