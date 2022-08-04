@@ -4,60 +4,170 @@
 
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Excel to HTML Table</title>
+		<title>XLSX For pointeur </title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+
 		<style>
 			table, td, th {
-			border: 1px solid;
-			border-collapse: collapse;
+				border: 1px solid;
+				border-collapse: collapse;
 			}
 			td , th {
-			padding: 5px;
-			width: 100px;
+				padding: 5px;
+				width: 100px;
 			}
 			th {
-			background-color: lightgreen;
+				background-color: lightgreen;
 			}
+			#myInput {
+				background-image: url('./searchicon.png');
+				background-position: 10px 10px;
+				background-repeat: no-repeat;
+				width: 12%;
+				font-size: 16px;
+				padding: 12px 20px 12px 40px;
+				border: 1px solid #ddd;
+				margin-bottom: 12px;
+			}
+
 		</style>
 	</head>
 
 	<body>
-		<h1>Upload an excel file to display and work with this HTML Table</h1>
+		<h1>Upload excel file to work</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
 		<button onclick="upload()">Upload</button>
+
+		<h1>Search
+		<input type="text" id="myInput" onkeyup="myFilterFunction()" placeholder="Search for Something.." title="Type in something">
+		</h1>
+
+		<form>
+			<label for="depart">Mouvement de </label>
+			<select id="depart">
+				<option value="0" class="class_Dep" onclick="valide_Dep()">Stock</option>
+				<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
+				<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
+				<option value="3" class="class_Dep" onclick="valide_Dep()">Hold3</option>
+			</select>
+
+			<!-- <button id="btndep"> Save </button> -->
+
+			<label for="destination"> vers </label>
+			<select id="destination">
+				<option value="0" class="class-Des" onclick="valide_Des()">Stock</option>
+				<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
+				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
+				<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
+			</select>
+			&nbsp
+			<button id="btndes"> M.a.J </button>
+		</form>
+
+		<!-- table to display the excel data -->
+		<br><br>
+		<table id="display_excel_data" border="1"></table>
 		<br>
+		DEP&nbsp : &nbsp<span id="choix_Dep"></span> Cumul :&nbsp <span id="sum_Dep"></span><
 		<br>
+		DES&nbsp : &nbsp<span id="choix_Des"></span> Cumul :&nbsp <span id="sum_Des"></span><
 
-		<!-- <form> -->
-		<input type="button" class="destination" value="H0" />
-		<input type="button" class="destination" value="H1" />
-		<input type="button" class="destination" value="H2" />
-		<input type="button" class="destination" value="H3" />
-		<input type="button" class="destination" value="H4" />
-		<input type="button" class="destination" value="H5" />
-		<input type="button" class="destination" value="H6" />
-		<input type="button" class="destination" value="H7" />
-		<input type="button" class="destination" value="H8" />
-		<input type="button" class="destination" value="H9" />
-		<!-- </form> -->
+		<script>
+			const btn_dep       = document.querySelector('#btndep');
+			const valeur_de_dep = document.querySelector('#depart')
+			const btn_des       = document.querySelector('#btndes');
+			const valeur_de_des = document.querySelector('#destination')
 
-	<br><br>
-	DESTINATION EN COURS : <p id="choixdestination"></p>
-	<br><br>
+			var fileSelected = false;
+			var Selected_Dep = false;
+			var Selected_Des = false;
+			var value_Dep ="0";
+			var value_Des ="0";
 
-	<!-- table to display the excel data -->
-	<table id="display_excel_data" border="1"></table>
-	<script>
+			function filter_Col() {
+				console.log(choix_Dep);
+				console.log(document.getElementById("display_excel_data"));
 
-			function HProcess(x) {
-				var valdest = x.target.value;
-				confirm(valdest);
-				document.getElementById("choixdestination").innerHTML = valdest;
+
 			}
-			Array.from(document.getElementsByClassName("destination")).forEach(function(i){
-				i.addEventListener("click", HProcess);
+			btn_des.onclick = (event) => {
+				event.preventDefault();
+				//upload();
+				valide_Dep();
+				valide_Des();
+				filter_Col();
+			};
+
+			function valide_Dep(x) {
+				//upload();
+				if ( fileSelected == true) {
+					Selected_Dep = true;
+					//value_Dep = valeur_de_dep.selectedIndex
+					//confirm("func valide_dep : " + value_Dep);
+					document.getElementById("choix_Dep").innerHTML = valeur_de_dep.selectedIndex;
+				}
+			}
+
+			Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
+				j.addEventListener("click", valide_Dep);
 			});
+
+			function valide_Des(x) {
+				if ( fileSelected == true) {
+					Selected_Des = true
+					//value_Des = x.target.value;
+					// value_Des = valeur_de_des.selectedIndex
+					//confirm("func valide_des : " + value_Des);
+					document.getElementById("choix_Des").innerHTML = valeur_de_des.selectedIndex;
+				}
+			}
+
+			Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
+				i.addEventListener("click", valide_Des);
+			});
+
+			/*
+			function sumCol_Dep(){
+				//input = document.getElementById("myInput");
+
+				caTaloG_sumCol_Dep = document.getElementById("display_excel_data");
+
+				var result_sumCol_Dep = caTaloG_sumCol_Dep.filter(function (caTaloG_sumCol_Dep) {
+					return caTaloG_sumCol_Dep.Position == valeur_de_dep;}).reduce(function(_this, vAl2)
+					{return _this + vAl2.Poids} , 0
+					);
+				confirm(result_sumCol_Dep);
+			}
+
+			function sumColumnStock(){
+				var table=document.getElementById("display_excel_data");
+				var resultSumColumnStock = table.filter(function (table) { return table.destination == valdes;}).reduce(function(_this, val){return _this + val.poids}, 0);
+				console.log(resultSumColumnStock);
+			}
+
+			function sumStock(){
+				var sumTable=document.getElementById("display_excel_data");
+				var res = sumTable.map(sumTable => sumTable.Position).reduce((acc, sumTable) => sumTable + acc);
+				console.log(res);
+			}
+			*/
+			function sortTable(n){
+
+				const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+				const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+					v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+					)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+				// do the work...
+				document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+					const table = th.closest('table');
+					Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+						.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+						.forEach(tr => table.appendChild(tr) );
+				})));
+			}
 
 			// Method to upload a valid excel file
 			function upload() {
@@ -71,6 +181,7 @@
 				if (extension == '.XLS' || extension == '.XLSX') {
 						//Here calling another method to read excel file into json
 						excelFileToJSON(files[0]);
+						fileSelected = true;
 				}else{
 					alert("Please select a valid excel file.");
 				}
@@ -103,12 +214,15 @@
 			function displayJsonToHtmlTable(jsonData){
 				var table=document.getElementById("display_excel_data");
 				if(jsonData.length>0){
-						var htmlData='<tr><th>Rang</th><th>Référence</th><th>Poids</th><th>Position</th><th>Destination</th></tr>';
+						// <th onclick="sortTable(0)">Name</th>
+						var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 						for(var i=0;i<jsonData.length;i++){
 								var row=jsonData[i];
+								// if (row["Position"] == value_Dep){
 								htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
 											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
 											+'</td><td>'+row["Destination"]+'</td></tr>';
+								// }
 						}
 						table.innerHTML=htmlData;
 						// console.log(htmlData)
@@ -116,6 +230,26 @@
 						table.innerHTML='There is no data in Excel';
 				}
 			}
+
+			//Medthod to search anything
+			function myFilterFunction() {
+						var input, filter, table, tr, td, i, txtValue;
+						input = document.getElementById("myInput");
+						filter = input.value.toUpperCase();
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td = tr[i].getElementsByTagName("td")[2];
+							if (td) {
+								txtValue = td.textContent || td.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
+							}
+						}
+					}
 		</script>
-	</body>
+</body>
 </html>

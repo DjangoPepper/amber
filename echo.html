@@ -1,0 +1,28 @@
+<!-- //exemple filtre sexe affichage -->
+<!DOCTYPE html>
+<!-- https://www.devenir-webmaster.com/V2/TUTO/CHAPITRE/JAVASCRIPT/51-array-sort-filter-reduce/ -->
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<script>
+		const tab1 = [ 	{ name : 'Jean',     sexe : 'M' },
+						{ name : 'Carine',   sexe : 'F' },
+						{ name : 'Paul',     sexe : 'M' },
+						{ name : 'Isabelle', sexe : 'F' }
+					];
+
+		// On va filtrer pour garder les filles
+		const tab2 = tab1.filter(valeur => {
+			if( valeur.sexe === 'F' ) return true;
+		})
+
+		console.log('Tableau de sortie => ');
+		console.table(tab2);
+
+		console.log("Le tableau d'entrée n'a pas été modifié => ");
+		console.table(tab1);
+	</script>
+</body>
+</html>

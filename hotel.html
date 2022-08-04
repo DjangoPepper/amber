@@ -1,0 +1,75 @@
+<!-- exemple cumul -->
+<!DOCTYPE html>
+<!-- https://www.devenir-webmaster.com/V2/TUTO/CHAPITRE/JAVASCRIPT/51-array-sort-filter-reduce/ -->
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+
+<style>
+		#myKatalog td {
+		padding: 0.25em;
+		}
+
+		#val {
+		display: block;
+		margin-top: 0.5em;
+		}
+	</style>
+
+<script>
+		function updateSubTotal() {
+			var table_func_updateSubTotal = document.getElementById("myKatalog");
+			let subTotal = Array.from(table_func_updateSubTotal.rows).slice(1).reduce((total, row) => {
+					return total + parseFloat(row.cells[1].innerHTML);
+			}, 0);
+
+			let subTotal2 = Array.from(table_func_updateSubTotal.rows).slice(1).reduce((total, row) => {
+					return total + parseFloat(row.cells[2].innerHTML);
+			}, 0);
+
+			// document.getElementById("val").innerHTML  = "SubTotal = $" + subTotal.toFixed(3);
+			// document.getElementById("val1").innerHTML = "SubTotal2 = $" + subTotal2.toFixed(3);
+			document.getElementById("val2").innerHTML = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp $" + subTotal.toFixed(3) + " $" + subTotal2.toFixed(3);
+		}
+
+		function onClickRemove(deleteButton) {
+			let row = deleteButton.parentElement.parentElement;
+			row.parentNode.removeChild(row);
+			updateSubTotal(); // Call after delete
+		}
+
+		updateSubTotal(); // Initial call
+	</script>
+
+</head>
+
+<body>
+		<html>
+			<table id="myKatalog">
+				<tr>
+					<th>Item</th>
+					<th>Price</th>
+					<th>M2</th>
+					<th>Remove</th>
+				</tr>
+				<tr>
+					<td>Hoodie</td>
+					<td class="count-me">15.00</td>
+					<td class="count-me">34.00</th>
+					<td><button onClick="onClickRemove(this)">Remove</button></td>
+				</tr>
+				<tr>
+					<td>Nike Cap</td>
+					<td class="count-me">10.99</td>
+					<td class="count-me">22.34</th>
+					<td><button onClick="onClickRemove(this)">Remove</button></td>
+				</tr>
+			</table>
+			<div id="val"> </div>
+			<div id="val1"></div>
+			<div id="val2"></div>
+			<br>
+			<td><button onClick="updateSubTotal()">UPDATE</button></td>
+		</html>
+</body>

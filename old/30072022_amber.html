@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>XLSX For pointeur </title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+
+<style>
+	table, td, th {
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+	td , th {
+		padding: 5px;
+		width: 100px;
+	}
+	th {
+		background-color: lightgreen;
+	}
+	#myInput {
+		background-image: url('./searchicon.png');
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		width: 28%;
+		font-size: 16px;
+		padding: 12px 20px 12px 40px;
+		border: 1px solid #ddd;
+		margin-bottom: 12px;
+	}
+
+</style>
+	</head>
+
+	<body>
+		<h1>Upload an excel file to work on shores</h1>
+		<!-- Input element to upload an excel file -->
+		<input type="file" id="file_upload" />
+		<button onclick="upload()">Upload</button>
+		<br>
+		<br>
+
+		<!-- <form> -->
+		<input type="button" class="destination" value="H0" />
+		<input type="button" class="destination" value="H1" />
+		<input type="button" class="destination" value="H2" />
+		<input type="button" class="destination" value="H3" />
+		<input type="button" class="destination" value="H4" />
+		<input type="button" class="destination" value="H5" />
+		<input type="button" class="destination" value="H6" />
+		<input type="button" class="destination" value="H7" />
+		<input type="button" class="destination" value="H8" />
+		<input type="button" class="destination" value="H9" />
+		<!-- </form> -->
+
+	<br><br>
+	DESTINATION EN COURS : <h2 id="choixdestination"</h2>
+	<br><br>
+
+	<h1>Référence Search</h1>
+	<input type="text" id="myInput" onkeyup="myFilerFunction()" placeholder="Search for Référence.." title="Type in something">
+
+
+	<!-- table to display the excel data -->
+	<table id="display_excel_data" border="1"></table>
+
+	<script>
+
+	function HProcess(x) {
+		var valdest = x.target.value;
+		confirm(valdest);
+		document.getElementById("choixdestination").innerHTML = valdest;
+	}
+	Array.from(document.getElementsByClassName("destination")).forEach(function(i){
+		i.addEventListener("click", HProcess);
+	});
+
+	// Method to upload a valid excel file
+	function upload() {
+		var files = document.getElementById('file_upload').files;
+		if(files.length==0){
+			alert("Please choose any file...");
+			return;
+		}
+		var filename = files[0].name;
+		var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+		if (extension == '.XLS' || extension == '.XLSX') {
+				//Here calling another method to read excel file into json
+				excelFileToJSON(files[0]);
+		}else{
+			alert("Please select a valid excel file.");
+		}
+	}
+
+	//Method to read excel file and convert it into JSON
+	function excelFileToJSON(file){
+			try {
+				var reader = new FileReader();
+				reader.readAsBinaryString(file);
+				reader.onload = function(e) {
+
+						var data = e.target.result;
+						var workbook = XLSX.read(data, {
+							type : 'binary'
+						});
+						var result = {};
+						var firstSheetName = workbook.SheetNames[0];
+						//reading only first sheet data
+						var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+						//displaying the json result into HTML table
+						displayJsonToHtmlTable(jsonData);
+						}
+				}catch(e){
+					console.error(e);
+				}
+	}
+
+	//Method to display the data in HTML Table
+	function displayJsonToHtmlTable(jsonData){
+		var table=document.getElementById("display_excel_data");
+		if(jsonData.length>0){
+				var htmlData='<tr><th>Rang</th><th>Référence</th><th>Poids</th><th>Position</th><th>Destination</th></tr>';
+				for(var i=0;i<jsonData.length;i++){
+						var row=jsonData[i];
+						htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
+									+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
+									+'</td><td>'+row["Destination"]+'</td></tr>';
+				}
+				table.innerHTML=htmlData;
+				// console.log(htmlData)
+		}else{
+				table.innerHTML='There is no data in Excel';
+		}
+	}
+
+	function myFilerFunction() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("display_excel_data");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[1];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
+	</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+//exemple sur SELECT
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Select 2 Elements</title>
+    <!-- <link href="css/selectbox.css" rel="stylesheet"> -->
+</head>
+<body>
+    <form>
+        <label for="depart">Mouvement de </label>
+        <select id="depart">
+            <option value="0">Stock</option>
+            <option value="1">Hold1</option>
+            <option value="2">Hold2</option>
+            <option value="3">Hold3</option>
+        </select>
+        <button id="btndep">Get the Selected index</button>
+
+        <label for="destination"> vers </label>
+        <select id="destination">
+            <option value="0">Stock</option>
+            <option value="1">Cale1</option>
+            <option value="2">Cale2</option>
+            <option value="3">Cale3</option>
+        </select>
+        <button id="btndes">Get the Selected index</button>
+
+    </form>
+    <script>
+        const btndep = document.querySelector('#btndep');
+        const sbdep = document.querySelector('#depart')
+        btndep.onclick = (event) => {
+            event.preventDefault();
+            // show the selected index
+            alert(sbdep.selectedIndex);
+        };
+
+        const btndes = document.querySelector('#btndes');
+        const sbdes = document.querySelector('#destination')
+        btndes.onclick = (event) => {
+            event.preventDefault();
+            // show the selected index
+            alert(sbdes.selectedIndex);
+        };
+    </script>
+</body>
+</html>
