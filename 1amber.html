@@ -46,6 +46,7 @@
 		<form>
 			<label for="depart">Mouvement de </label>
 			<select id="depart">
+				<option value="99"> select depuis</option>
 				<option value="0" class="class_Dep" onclick="valide_Dep()">Stock</option>
 				<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
 				<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
@@ -56,6 +57,7 @@
 
 			<label for="destination"> vers </label>
 			<select id="destination">
+				<option value="99"> select vers</option>
 				<option value="0" class="class-Des" onclick="valide_Des()">Stock</option>
 				<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
 				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
@@ -105,7 +107,7 @@
 					Selected_Dep = true;
 					//value_Dep = valeur_de_dep.selectedIndex
 					//confirm("func valide_dep : " + value_Dep);
-					document.getElementById("choix_Dep").innerHTML = valeur_de_dep.selectedIndex;
+					document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
 				}
 			}
 
@@ -119,7 +121,7 @@
 					//value_Des = x.target.value;
 					// value_Des = valeur_de_des.selectedIndex
 					//confirm("func valide_des : " + value_Des);
-					document.getElementById("choix_Des").innerHTML = valeur_de_des.selectedIndex;
+					document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
 				}
 			}
 
