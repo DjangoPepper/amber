@@ -85,17 +85,18 @@
 			var value_Dep ="0";
 			var value_Des ="0";
 
-			function filter_Col(colonne) {
-				const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-				const result = words.filter(word => word.length > 6);
-				console.log(result);
-				// expected output: Array ["exuberant", "destruction", "present"]
+			function filter_Col() {
+				console.log(choix_Dep);
+				console.log(document.getElementById("display_excel_data"));
+
+
 			}
 			btn_des.onclick = (event) => {
 				event.preventDefault();
 				//upload();
 				valide_Dep();
 				valide_Des();
+				filter_Col();
 			};
 
 			function valide_Dep(x) {
@@ -217,9 +218,11 @@
 						var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 						for(var i=0;i<jsonData.length;i++){
 								var row=jsonData[i];
+								// if (row["Position"] == value_Dep){
 								htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
 											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
 											+'</td><td>'+row["Destination"]+'</td></tr>';
+								// }
 						}
 						table.innerHTML=htmlData;
 						// console.log(htmlData)
@@ -236,7 +239,7 @@
 						table = document.getElementById("display_excel_data");
 						tr = table.getElementsByTagName("tr");
 						for (i = 0; i < tr.length; i++) {
-							td = tr[i].getElementsByTagName("td")[1];
+							td = tr[i].getElementsByTagName("td")[2];
 							if (td) {
 								txtValue = td.textContent || td.innerText;
 								if (txtValue.toUpperCase().indexOf(filter) > -1) {
