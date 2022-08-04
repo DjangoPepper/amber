@@ -87,12 +87,21 @@
 			var value_Dep ="0";
 			var value_Des ="0";
 
-			function filter_Col() {
-				console.log(choix_Dep);
-				console.log(document.getElementById("display_excel_data"));
-
-
-			}
+			function myFilterFunction() {
+						var input_search, filter, table, tr, td, i, txtValue;
+						input_search = document.getElementById("myinput_search");
+						filter = input_search.value.toUpperCase();
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td = tr[i].getElementsByTagName("td")[1];
+							if (td) {
+								txtValue = td.textContent || td.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
 			btn_des.onclick = (event) => {
 				event.preventDefault();
 				//upload();
@@ -235,13 +244,13 @@
 
 			//Medthod to search anything
 			function myFilterFunction() {
-						var input, filter, table, tr, td, i, txtValue;
-						input = document.getElementById("myInput");
-						filter = input.value.toUpperCase();
+						var input_search, filter, table, tr, td, i, txtValue;
+						input_search = document.getElementById("myinput_search");
+						filter = input_search.value.toUpperCase();
 						table = document.getElementById("display_excel_data");
 						tr = table.getElementsByTagName("tr");
 						for (i = 0; i < tr.length; i++) {
-							td = tr[i].getElementsByTagName("td")[2];
+							td = tr[i].getElementsByTagName("td")[1];
 							if (td) {
 								txtValue = td.textContent || td.innerText;
 								if (txtValue.toUpperCase().indexOf(filter) > -1) {
