@@ -19,6 +19,9 @@
 			th {
 				background-color: lightgreen;
 			}
+			#file_upload {
+				padding: 12px 20px 12px 40px;
+			}
 			#myinput_search {
 				background-image: url('./searchicon.png');
 				background-position: 10px 10px;
@@ -98,6 +101,32 @@
 			var Selected_Des = false;
 			var value_Dep ="0";
 			var value_Des ="0";
+
+
+			function myBIGfilter(){
+						var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
+						input_display = document.getElementById("myinput_display");
+						input_search  = document.getElementById("myinput_search");
+
+						filter = input_display.value.toUpperCase();
+						filter = input_search.value.toUpperCase();
+
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td_display = tr[i].getElementsByTagName("td")[3];
+							td_search = tr[i].getElementsByTagName("td")[1];
+							if (td_display) {
+								txtValue = td_display.textContent || td_display.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
+							}
+						}
+					}
+
 
 
 			function myfilterFunction_Display(){	// function myFilterFunction() {
