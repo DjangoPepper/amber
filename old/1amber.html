@@ -20,30 +20,23 @@
 				background-color: lightgreen;
 			}
 			#file_upload {
-				background-image: url('./searchicon.png');
-				background-position: 10px 10px;
-				background-repeat: no-repeat;
-				width: 31%;
-				/* font-size: 16px; */
-				/* padding: 12px 20px 12px 40px; */
-				/* border: 1px solid #ddd; */
-				/* margin-bottom: 12px; */
+				padding: 12px 20px 12px 40px;
 			}
 			#myinput_search {
 				background-image: url('./searchicon.png');
 				background-position: 10px 10px;
 				background-repeat: no-repeat;
-				width: 4%;
+				width: 12%;
 				font-size: 16px;
 				padding: 12px 20px 12px 40px;
 				border: 1px solid #ddd;
 				margin-bottom: 12px;
 			}
 			#myinput_display {
-				background-image: url('./searchicon.png');
+				/* background-image: url('./searchicon.png'); */
 				background-position: 10px 10px;
 				background-repeat: no-repeat;
-				width: 4%;
+				width: 12%;
 				font-size: 16px;
 				padding: 12px 20px 12px 40px;
 				border: 1px solid #ddd;
@@ -84,16 +77,13 @@
 			<button id="btndes"> VALID </button>
 		</form>
 		<br>
-		<h1>
-			Search  <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in something">
-			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in choice">
+		<h1>Search <input type="text" id="myinput_search"  onkeyup="myFilterFunction()" placeholder="Search.." title="Type in something">
+			Display <input type="text" id="myinput_display" onkeyup="myfilterFunction_Display()" placeholder="Display." title="Type in choice">
 		</h1>
 		<br>
-		CUMUL &nbsp : &nbsp<span id="choix_Dep"></span>
-
-		<!-- Cumul :&nbsp <span id="sum_Dep"></span><
+		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> Cumul :&nbsp <span id="sum_Dep"></span><
 		<br>
-		QUANT &nbsp : &nbsp<span id="choix_Des"></span> Cumul :&nbsp <span id="sum_Des"></span>< -->
+		DESTINATION &nbsp : &nbsp<span id="choix_Des"></span> Cumul :&nbsp <span id="sum_Des"></span><
 
 		<!-- table to display the excel data -->
 		<br><br>
@@ -111,51 +101,56 @@
 			var Selected_Des = false;
 			var value_Dep ="0";
 			var value_Des ="0";
-			var filter_quantite = 0;
 
-			//Medthod to search anything
-			function filter() {
-				var filter_quantite, input_search, filter_search, input_display, filter_display, table, tr, td, i, txtValue;
-				input_search = document.getElementById("myinput_search");
-				filter_search = input_search.value.toUpperCase();
-				input_display = document.getElementById("myinput_display");
-				filter_display = input_display.value.toUpperCase();
-				filter_quantite = 0;
 
-				table = document.getElementById("display_excel_data");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td_ref = tr[i].getElementsByTagName("td")[1];
-					td_pos = tr[i].getElementsByTagName("td")[3];
-					let shouldDisplay = true;
-					filter_quantite = filter_quantite + 1;
-					if (td_ref) {
-						txtValue = td_ref.textContent || td_ref.innerText;
-						if (txtValue.toUpperCase().indexOf(filter_search) < 0) {
-							shouldDisplay = false;
-							filter_quantite = filter_quantite - 1;
-						}
-					}
-					if (td_pos) {
-						txtValue = td_pos.textContent || td_pos.innerText;
-						if (txtValue.toUpperCase().indexOf(filter_display) < 0) {
-							shouldDisplay = false;
-							filter_quantite = filter_quantite - 1;
+			function myBIGfilter(){
+						var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
+						input_display = document.getElementById("myinput_display");
+						input_search  = document.getElementById("myinput_search");
+
+						filter = input_display.value.toUpperCase();
+						filter = input_search.value.toUpperCase();
+
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td_display = tr[i].getElementsByTagName("td")[3];
+							td_search = tr[i].getElementsByTagName("td")[1];
+							if (td_display) {
+								txtValue = td_display.textContent || td_display.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
+							}
 						}
 					}
 
-					if(shouldDisplay) {
-						tr[i].style.display = "";
-					} else {
-						tr[i].style.display = "none";
+
+
+			function myfilterFunction_Display(){	// function myFilterFunction() {
+						var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
+						input_display = document.getElementById("myinput_display");
+						filter = input_display.value.toUpperCase();
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td_display = tr[i].getElementsByTagName("td")[3];
+							if (td_display) {
+								txtValue = td_display.textContent || td_display.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
+							}
+						}
 					}
-				}
-				console.log("quantite = " + filter_quantite -1);
-			}
 
 
 
- //Here are the working functions
+ //Here are theworking functions
 			btn_des.onclick = (event) => {
 				event.preventDefault();
 				//upload();
@@ -255,14 +250,12 @@
 				var table=document.getElementById("display_excel_data");
 				if(jsonData.length>0){
 						// <th onclick="sortTable(0)">Name</th>
-						// var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
-						var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
+						var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 						for(var i=0;i<jsonData.length;i++){
 								var row=jsonData[i];
 								htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
-											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"];
-											// +'</td><td>'+row["Destination"]+'</td></tr>';
-											+'</td><td>';
+											+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
+											+'</td><td>'+row["Destination"]+'</td></tr>';
 								// }
 						}
 						table.innerHTML=htmlData;
@@ -271,6 +264,26 @@
 						table.innerHTML='There is no data in Excel';
 				}
 			}
+
+			//Medthod to search anything
+			function myFilterFunction() {
+						var input_search, filter, table, tr, td, i, txtValue;
+						input_search = document.getElementById("myinput_search");
+						filter = input_search.value.toUpperCase();
+						table = document.getElementById("display_excel_data");
+						tr = table.getElementsByTagName("tr");
+						for (i = 0; i < tr.length; i++) {
+							td = tr[i].getElementsByTagName("td")[1];
+							if (td) {
+								txtValue = td.textContent || td.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+								} else {
+									tr[i].style.display = "none";
+								}
+							}
+						}
+					}
 		</script>
 	</body>
 </html>
