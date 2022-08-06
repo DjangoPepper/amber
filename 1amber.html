@@ -2,37 +2,37 @@
 <!DOCTYPE html>
 
 <style>
-    table, td, th {
-        border: 1px solid;
-        border-collapse: collapse;
-    }
-    td , th {
-        padding: 5px;
-        width: 100px;
-    }
-    th {
-        background-color: lightgreen;
-    }
-    #myinput_search {
+	table, td, th {
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+	td , th {
+		padding: 5px;
+		width: 100px;
+	}
+	th {
+		background-color: lightgreen;
+	}
+	#myinput_search {
 
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 12%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-    }
-    #myinput_display {
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		width: 12%;
+		font-size: 16px;
+		padding: 12px 20px 12px 40px;
+		border: 1px solid #ddd;
+		margin-bottom: 12px;
+	}
+	#myinput_display {
 
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 12%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-    }
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		width: 12%;
+		font-size: 16px;
+		padding: 12px 20px 12px 40px;
+		border: 1px solid #ddd;
+		margin-bottom: 12px;
+	}
 
 </style>
 
@@ -42,8 +42,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>XLSX For pointeur </title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
-
-
 	</head>
 
 	<body>
@@ -84,8 +82,8 @@
 		CALCULS DEPUIS : <span id="choix_Dep"></span>
 		<br>
 		QUANTITES : <span id="id_value_Quantite"></span>
-		<br>
-		CUMUL : <span id="id_value_Cumul"></span>
+		<!-- <br>
+		CUMUL : <span id="id_value_Cumul"></span> -->
 
 <!-- 		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> Cumul :&nbsp <span id="sum_Dep"></span><
 		<br>
@@ -98,186 +96,183 @@
 </html>
 
 <script>
-    const btn_dep       = document.querySelector('#btndep');
-    const valeur_de_dep = document.querySelector('#depart')
-    const btn_des       = document.querySelector('#btndes');
-    const valeur_de_des = document.querySelector('#destination')
+	const btn_dep       = document.querySelector('#btndep');
+	const valeur_de_dep = document.querySelector('#depart')
+	const btn_des       = document.querySelector('#btndes');
+	const valeur_de_des = document.querySelector('#destination')
 
-    var fileSelected = false;
-    var Selected_Dep = false;
-    var Selected_Des = false;
-    var value_Dep ="0";
-    var value_Des ="0";
+	var fileSelected = false;
+	var Selected_Dep = false;
+	var Selected_Des = false;
+	var value_Dep ="0";
+	var value_Des ="0";
 	var value_Quantite = 0;
 
-    //Medthod to search anything
-    function filter() {
-        var  input_search, filter_search, input_display, filter_display, table, tr, td, i, txtValue, rangvalue;
-        var value_Cumul = 0;
+	//Medthod to search anything
+	function filter() {
+		var  input_search, filter_search, input_display, filter_display, table, tr, td, i, txtValue, rangvalue;
+		var value_Quantite = -1;
+		// var value_Cumul = 0;
+		// var incremente_flag_td_ref = false;
+		// var incremente_flag_td_pos = false;
 
-		var incremente_flag_td_ref = false;
-		var incremente_flag_td_pos = false;
+		input_search = document.getElementById("myinput_search");
+		filter_search = input_search.value.toUpperCase();
+		input_display = document.getElementById("myinput_display");
+		filter_display = input_display.value.toUpperCase();
+		table = document.getElementById("display_excel_data");
+		tr = table.getElementsByTagName("tr");
 
-        input_search = document.getElementById("myinput_search");
-        filter_search = input_search.value.toUpperCase();
-        input_display = document.getElementById("myinput_display");
-        filter_display = input_display.value.toUpperCase();
-        table = document.getElementById("display_excel_data");
-        tr = table.getElementsByTagName("tr");
+		document.getElementById("id_value_Quantite").innerHTML = (value_Quantite);
 
-        document.getElementById("id_value_Quantite").innerHTML = (value_Quantite);
-
-        for (i = 0; i < tr.length; i++) {
-			incremente_flag_td_pos = true;
-			incremente_flag_td_ref = true;
+		for (i = 0; i < tr.length; i++) {
+			//let incremente_flag_td_pos = false;
+			//let incremente_flag_td_ref = false;
 			let shouldDisplay = true;
 
-			td_rang = tr[i].getElementsByTagName("td")[0];
-            td_ref = tr[i].getElementsByTagName("td")[1];
-            td_pos = tr[i].getElementsByTagName("td")[3];
+			td_ref = tr[i].getElementsByTagName("td")[1];
+			td_pos = tr[i].getElementsByTagName("td")[3];
 
-            if (td_ref) {
-                txtValue = td_ref.textContent || td_ref.innerText;
-                if (txtValue.toUpperCase().indexOf(filter_search) < 0) {
-                    shouldDisplay = false;
-					incremente_flag_td_ref = false;
-                } //else {incremente_flag_td_ref = true; }
-			}
-            if (td_pos) {
-                txtValue = td_pos.textContent || td_pos.innerText;
-                if (txtValue.toUpperCase().indexOf(filter_display) < 0) {
-                    shouldDisplay = false;
-					incremente_flag_td_pos = false;
-				} //else {incremente_flag_td_pos = true;}
-			}
-
-            if(shouldDisplay) {
-                tr[i].style.display = "";
-				if ( incremente_flag_td_pos || incremente_flag_td_ref == false ) {
-					value_Quantite++;
+			if (td_pos) {
+				txtValue = td_pos.textContent || td_pos.innerText;
+				if (txtValue.toUpperCase().indexOf(filter_display) < 0) {
+					shouldDisplay = false;
+					//incremente_flag_td_pos = false;
 				}
-            }
+			}
+
+			if (td_ref) {
+				txtValue = td_ref.textContent || td_ref.innerText;
+				if (txtValue.toUpperCase().indexOf(filter_search) < 0) {
+					shouldDisplay = false;
+					//incremente_flag_td_ref = false;
+				}
+			}
+
+
+			if(shouldDisplay) {
+				tr[i].style.display = "";
+				value_Quantite++;
+				// if ( incremente_flag_td_pos || incremente_flag_td_ref == false ) {value_Quantite++;}
+			}
 			else {
-                tr[i].style.display = "none";
-            }
+				tr[i].style.display = "none";
+			}
 		}
-    }
+	}
 
-    function incremente_valueCumul(){
-    }
+	//Here are theworking functions
+	btn_des.onclick = (event) => {
+		event.preventDefault();
+		//upload();
+		valide_Dep();
+		valide_Des();
+		//filter_Col();
+	};
 
-    //Here are theworking functions
-    btn_des.onclick = (event) => {
-        event.preventDefault();
-        //upload();
-        valide_Dep();
-        valide_Des();
-        //filter_Col();
-    };
+	function valide_Dep(x) {
+		//upload();
+		if ( fileSelected == true) {
+			Selected_Dep = true;
+			//value_Dep = valeur_de_dep.selectedIndex
+			//confirm("func valide_dep : " + value_Dep);
+			document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
+		}
+	}
 
-    function valide_Dep(x) {
-        //upload();
-        if ( fileSelected == true) {
-            Selected_Dep = true;
-            //value_Dep = valeur_de_dep.selectedIndex
-            //confirm("func valide_dep : " + value_Dep);
-            document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
-        }
-    }
+	Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
+		j.addEventListener("click", valide_Dep);
+	});
 
-    Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
-        j.addEventListener("click", valide_Dep);
-    });
+	function valide_Des(x) {
+		if ( fileSelected == true) {
+			Selected_Des = true
+			//value_Des = x.target.value;
+			// value_Des = valeur_de_des.selectedIndex
+			//confirm("func valide_des : " + value_Des);
+			//document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
+		}
+	}
 
-    function valide_Des(x) {
-        if ( fileSelected == true) {
-            Selected_Des = true
-            //value_Des = x.target.value;
-            // value_Des = valeur_de_des.selectedIndex
-            //confirm("func valide_des : " + value_Des);
-            //document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
-        }
-    }
+	Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
+		i.addEventListener("click", valide_Des);
+	});
 
-    Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
-        i.addEventListener("click", valide_Des);
-    });
+	function sortTable(n){
 
-    function sortTable(n){
+		const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
 
-        const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+		const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+			v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+			)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
 
-        const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-            v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-            )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+		// do the work...
+		document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+			const table = th.closest('table');
+			Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+				.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+				.forEach(tr => table.appendChild(tr) );
+		})));
+	}
 
-        // do the work...
-        document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-            const table = th.closest('table');
-            Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-                .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-                .forEach(tr => table.appendChild(tr) );
-        })));
-    }
+	// Method to upload a valid excel file
+	function upload() {
+		var files = document.getElementById('file_upload').files;
+		if(files.length==0){
+			alert("Please choose any file...");
+			return;
+		}
+		var filename = files[0].name;
+		var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+		if (extension == '.XLS' || extension == '.XLSX') {
+				//Here calling another method to read excel file into json
+				excelFileToJSON(files[0]);
+				fileSelected = true;
+		}else{
+			alert("Please select a valid excel file.");
+		}
+	}
 
-    // Method to upload a valid excel file
-    function upload() {
-        var files = document.getElementById('file_upload').files;
-        if(files.length==0){
-            alert("Please choose any file...");
-            return;
-        }
-        var filename = files[0].name;
-        var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
-        if (extension == '.XLS' || extension == '.XLSX') {
-                //Here calling another method to read excel file into json
-                excelFileToJSON(files[0]);
-                fileSelected = true;
-        }else{
-            alert("Please select a valid excel file.");
-        }
-    }
+	//Method to read excel file and convert it into JSON
+	function excelFileToJSON(file){
+			try {
+				var reader = new FileReader();
+				reader.readAsBinaryString(file);
+				reader.onload = function(e) {
 
-    //Method to read excel file and convert it into JSON
-    function excelFileToJSON(file){
-            try {
-                var reader = new FileReader();
-                reader.readAsBinaryString(file);
-                reader.onload = function(e) {
+						var data = e.target.result;
+						var workbook = XLSX.read(data, {
+							type : 'binary'
+						});
+						var result = {};
+						var firstSheetName = workbook.SheetNames[0];
+						//reading only first sheet data
+						var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+						//displaying the json result into HTML table
+						displayJsonToHtmlTable(jsonData);
+						}
+				}catch(e){
+					console.error(e);
+				}
+	}
 
-                        var data = e.target.result;
-                        var workbook = XLSX.read(data, {
-                            type : 'binary'
-                        });
-                        var result = {};
-                        var firstSheetName = workbook.SheetNames[0];
-                        //reading only first sheet data
-                        var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                        //displaying the json result into HTML table
-                        displayJsonToHtmlTable(jsonData);
-                        }
-                }catch(e){
-                    console.error(e);
-                }
-    }
-
-    //Method to display the data in HTML Table
-    function displayJsonToHtmlTable(jsonData){
-        var table=document.getElementById("display_excel_data");
-        if(jsonData.length>0){
-                // <th onclick="sortTable(0)">Name</th>
-                var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
-                for(var i=0;i<jsonData.length;i++){
-                        var row=jsonData[i];
-                        htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
-                                    +'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
-                                    +'</td><td>'+row["Destination"]+'</td></tr>';
-                        // }
-                }
-                table.innerHTML=htmlData;
-                // console.log(htmlData)
-        }else{
-                table.innerHTML='There is no data in Excel';
-        }
-    }
+	//Method to display the data in HTML Table
+	function displayJsonToHtmlTable(jsonData){
+		var table=document.getElementById("display_excel_data");
+		if(jsonData.length>0){
+				// <th onclick="sortTable(0)">Name</th>
+				var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
+				for(var i=0;i<jsonData.length;i++){
+						var row=jsonData[i];
+						htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
+									+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
+									+'</td><td>'+row["Destination"]+'</td></tr>';
+						// }
+				}
+				table.innerHTML=htmlData;
+				// console.log(htmlData)
+		}else{
+				table.innerHTML='There is no data in Excel';
+		}
+	}
 </script>
