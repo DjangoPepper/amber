@@ -102,6 +102,7 @@
 			var value_Dep ="0";
 			var value_Des ="0";
 
+			var nb = 0;
 
 			function myBIGfilter(){
 						var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
@@ -130,23 +131,24 @@
 
 
 			function myfilterFunction_Display(){	// function myFilterFunction() {
-						var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
-						input_display = document.getElementById("myinput_display");
-						filter = input_display.value.toUpperCase();
-						table = document.getElementById("display_excel_data");
-						tr = table.getElementsByTagName("tr");
-						for (i = 0; i < tr.length; i++) {
-							td_display = tr[i].getElementsByTagName("td")[3];
-							if (td_display) {
-								txtValue = td_display.textContent || td_display.innerText;
-								if (txtValue.toUpperCase().indexOf(filter) > -1) {
-									tr[i].style.display = "";
-								} else {
-									tr[i].style.display = "none";
-								}
-							}
+				document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
+				var input_search, input_display, filter, table, tr, td_search, td_display, i, txtValue;
+				input_display = document.getElementById("myinput_display");
+				filter = input_display.value.toUpperCase();
+				table = document.getElementById("display_excel_data");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td_display = tr[i].getElementsByTagName("td")[3];
+					if (td_display) {
+						txtValue = td_display.textContent || td_display.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
 						}
 					}
+				}
+			}
 
 
 
