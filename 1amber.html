@@ -108,8 +108,7 @@
 	var value_Des ="0";
 
 	var value_nb = 0;
-	document.getElementById("id_nb").innerHTML = (value_nb);
-
+	//document.getElementById("id_nb").innerHTML = ('value_nb');
 	//Medthod to search anything
 	function filter() {
 		var  input_search, filter_search, input_display, filter_display, table, tr, td, i, txtValue, rangvalue;
@@ -120,8 +119,9 @@
 		filter_display = input_display.value.toUpperCase();
 		table = document.getElementById("display_excel_data");
 		tr = table.getElementsByTagName("tr");
+		document.getElementById("id_nb").innerHTML = (value_nb);
 
-		value_nb = 0;
+		value_nb = -1;
 		for (i = 0; i < tr.length; i++) {
 			let shouldDisplay = true;
 
