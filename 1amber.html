@@ -102,11 +102,9 @@
 		QUANTITES : <span id="id_nb"></span> Piéce(s)
 		<br>
 		CUMUL : <span id="id_cu"></span> Tonne(s)
-
-<!-- 		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> Cumul :&nbsp <span id="sum_Dep"></span><
 		<br>
-		DESTINATION &nbsp : &nbsp<span id="choix_Des"></span> Cumul :&nbsp <span id="sum_Des"></span><
- -->
+		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
+
 		<!-- table to display the excel data -->
 		<br><br>
 		<table id="display_excel_data" border="1"></table>
@@ -127,6 +125,14 @@
 
 	var value_cu = 0;
 	var value_nb = 0;
+	var valeur_de_ran = 0;
+	var ran_txtValue = 0;
+
+	function changeDestination(j) {
+		// confirm(valeur_de_dep.selectedIndex - 1);
+		// confirm(valeur_de_des.selectedIndex - 1);
+		confirm(j);
+	}
 
 	//Medthod to search anything
 	function filter() {
@@ -144,8 +150,10 @@
 		value_nb = -1;
 		value_cu = 0;
 		poi_txtValue = 0;
+		ran_txtValue = 0;
 		for (i = 0; i < tr.length; i++) {
 			let shouldDisplay = true;
+			td_ran = tr[i].getElementsByTagName("td")[0];
 			td_ref = tr[i].getElementsByTagName("td")[1];
 			td_poi = tr[i].getElementsByTagName("td")[2];
 			td_pos = tr[i].getElementsByTagName("td")[3];
@@ -166,6 +174,13 @@
 
 			if (td_poi) {
 				poi_txtValue = td_poi.textContent || td_poi.innerText;
+			}
+
+			if(td_ran) {
+				ran_txtValue = td_ran.textContent || td_ran.innerText;
+				if(value_nb > 0){
+					valeur_de_ran = 1 * ran_txtValue;
+				}
 			}
 
 			if(shouldDisplay) {
@@ -203,7 +218,7 @@
 	function valide_Des(x) {
 		if ( fileSelected == true) {
 			Selected_Des = true
-			//document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
+			document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
 		}
 	}
 
@@ -281,7 +296,7 @@
 						htmlData+='<tr><td>'+row["Rang"]+'</td>'
 							// <td>'+row["Référence"]+'</td><td>'
 								// +row["Référence"]
-								+'<td><button onclick="changeColor()">'+row["Référence"]+'</button></td>'
+								+'<td><button class="click_reference" onclick="changeDestination('+ (i+1) +')">'+row["Référence"]+'</button></td>'
 								+'<td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td></tr>';
 				}
 				table.innerHTML=htmlData;
