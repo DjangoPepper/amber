@@ -112,7 +112,7 @@
 
 	//Medthod to search anything
 	function filter() {
-		var  input_search, filter_search, input_display, filter_display, table, tr, td, i, txtValue, rangvalue;
+		var  input_search, filter_search, input_display, filter_display, table, tr, td, i, poi_txtValue, txtValue, rangvalue;
 
 		input_search = document.getElementById("myinput_search");
 		filter_search = input_search.value.toUpperCase();
@@ -125,6 +125,7 @@
 
 		value_nb = -1;
 		value_cu = 0;
+		poi_txtValue = 0;
 		for (i = 0; i < tr.length; i++) {
 			let shouldDisplay = true;
 
@@ -146,26 +147,17 @@
 					shouldDisplay = false;
 				}
 			}
-			if (td_pos) {
-				txtValue = td_pos.textContent || td_pos.innerText;
-				if (txtValue.toUpperCase().indexOf(filter_display) < 0) {
-					shouldDisplay = false;
-				}
-			}
 
 			if (td_poi) {
-				txtValue = td_poi.textContent || td_poi.innerText;
-				// txtValue = td_poi.innerText;
-				// txtValue = td_poi.inner
-				// if (txtValue.toUpperCase().indexOf(filter_display) > 0) {
-					value_cu = value_cu + (1 * txtValue)
-					value_cu = value_cu + txtValue;
-				// }
+				poi_txtValue = td_poi.textContent || td_poi.innerText;
 			}
 
 			if(shouldDisplay) {
 				tr[i].style.display = "";
 				value_nb++;
+				if(value_nb > 0){
+					value_cu = value_cu + (1 * poi_txtValue);
+				}
 			}
 			else {
 				tr[i].style.display = "none";
