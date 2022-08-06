@@ -13,10 +13,8 @@
 	th {
 		background-color: lightgreen;
 	}
-	#mystabilo_button {
-		background-color: orange;
-	}
 	#myinput_search {
+
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
 		width: 12%;
@@ -26,6 +24,7 @@
 		margin-bottom: 12px;
 	}
 	#myinput_display {
+
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
 		width: 12%;
@@ -129,6 +128,8 @@
 		poi_txtValue = 0;
 		for (i = 0; i < tr.length; i++) {
 			let shouldDisplay = true;
+
+
 			td_ref = tr[i].getElementsByTagName("td")[1];
 			td_poi = tr[i].getElementsByTagName("td")[2];
 			td_pos = tr[i].getElementsByTagName("td")[3];
@@ -257,14 +258,12 @@
 		var table=document.getElementById("display_excel_data");
 		if(jsonData.length>0){
 				// <th onclick="sortTable(0)">Name</th>
-				// var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
-				var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
+				var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 				for(var i=0;i<jsonData.length;i++){
 						var row=jsonData[i];
 						htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
 									+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
-									+'</td></tr>';
-									// +'</td><td>'+row["Destination"]+'</td></tr>';
+									+'</td><td>'+row["Destination"]+'</td></tr>';
 						// }
 				}
 				table.innerHTML=htmlData;
