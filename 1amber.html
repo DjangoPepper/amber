@@ -13,10 +13,27 @@
 	th {
 		background-color: lightgreen;
 	}
-	#mystabilo_button {
-		background-color: orange;
+
+	button {
+		padding: 5px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
 	}
-	#myinput_search {
+
+	button.blue {
+		background-color: #3498db;
+	}
+
+	button.green {
+		background-color: #2ecc71;
+	}
+
+	button.orange {
+		background-color: orangered;
+	}
+
+#myinput_search {
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
 		width: 12%;
@@ -261,11 +278,11 @@
 				var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
 				for(var i=0;i<jsonData.length;i++){
 						var row=jsonData[i];
-						htmlData+='<tr><td>'+row["Rang"]+'</td><td>'+row["Référence"]
-									+'</td><td>'+row["Poids"]+'</td><td>'+row["Position"]
-									+'</td></tr>';
-									// +'</td><td>'+row["Destination"]+'</td></tr>';
-						// }
+						htmlData+='<tr><td>'+row["Rang"]+'</td>'
+							// <td>'+row["Référence"]+'</td><td>'
+								// +row["Référence"]
+								+'<td><button onclick="changeColor()">'+row["Référence"]+'</button></td>'
+								+'<td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td></tr>';
 				}
 				table.innerHTML=htmlData;
 				// console.log(htmlData)
@@ -274,3 +291,9 @@
 		}
 	}
 </script>
+
+<!--
+<input type="button" id="upload" value="Upload" onclick="UploadProcess()" />
+<button onclick="upload()">Upload</button>
+<button id="btndep"> Save </button>
+-->
