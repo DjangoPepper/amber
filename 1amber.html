@@ -154,11 +154,13 @@
 			}
 
 			if (td_poi) {
-				// txtValue = td_poi.textContent || td_poi.innerText;
-				txtValue = td_poi.innerText;
-				if (txtValue.toUpperCase().indexOf(filter_display) > 0) {
+				txtValue = td_poi.textContent || td_poi.innerText;
+				// txtValue = td_poi.innerText;
+				// txtValue = td_poi.inner
+				// if (txtValue.toUpperCase().indexOf(filter_display) > 0) {
+					value_cu = value_cu + (1 * txtValue)
 					value_cu = value_cu + txtValue;
-				}
+				// }
 			}
 
 			if(shouldDisplay) {
