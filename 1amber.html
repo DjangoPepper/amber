@@ -99,8 +99,8 @@
 		<br>
 
 		<h1>
-			Search <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in something">
-			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in choice" value="choix_Dep">
+			Search <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in to find">
+			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
 		</h1>
 
 		<br>
@@ -138,12 +138,13 @@
 	var jsonData;		//jsonData is in main
 	var table = document.getElementById("display_excel_data");//table is in main
 
+	//funtion advancedbuttonvalue
+	// var message = 'ça va ?';
+	// document.write('<input type="text" value="' + message + '" />');
+
 	function showNewDestination(rangNewDest) {
 		jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
 		confirm("New Dest for rang " + rangNewDest + " : " + jsonData[rangNewDest].Position);
-		return;
-			// }
-		// }
 	}
 
 
