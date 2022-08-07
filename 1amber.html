@@ -77,6 +77,8 @@
 				<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
 				<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
 				<option value="3" class="class_Dep" onclick="valide_Dep()">Hold3</option>
+				<option value="4" class="class_Dep" onclick="valide_Dep()">Hold4</option>
+				<option value="5" class="class_Dep" onclick="valide_Dep()">Hold5</option>
 			</select>
 
 			<!-- <button id="btndep"> Save </button> -->
@@ -88,22 +90,27 @@
 				<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
 				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
 				<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
+				<option value="4" class="class-Des" onclick="valide_Des()">Cale4</option>
+				<option value="5" class="class-Des" onclick="valide_Des()">Cale5</option>
 			</select>
 			&nbsp
 			<button id="btndes"> REFRESH </button>
 		</form>
 		<br>
-		<h1>Search <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in something">
-			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in choice">
+
+		<h1>
+			Search <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in something">
+			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in choice" value="choix_Dep">
 		</h1>
+
 		<br>
-		CALCULS <!-- DEPUIS : <span id="choix_Dep"></span> -->
+			CALCULS <!-- DEPUIS : <span id="choix_Dep"></span> -->
 		<br>
-		QUANTITES : <span id="id_nb"></span> Piéce(s)
+			QUANTITES : <span id="id_nb"></span> Piéce(s)
 		<br>
-		CUMUL : <span id="id_cu"></span> Tonne(s)
+			CUMUL : <span id="id_cu"></span> Tonne(s)
 		<br>
-		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
+			DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
 
 		<!-- table to display the excel data -->
 		<br><br>
@@ -113,11 +120,12 @@
 
 <script>
 	const btn_dep       = document.querySelector('#btndep');
-	const valeur_de_dep = document.querySelector('#depart')
+	const valeur_de_dep = document.querySelector('#depart');
 	const btn_des       = document.querySelector('#btndes');
-	const valeur_de_des = document.querySelector('#destination')
+	const valeur_de_des = document.querySelector('#destination');
 
-	var fileSelected = false;
+	var fileToUploadSelected = false;
+	var fileUpLoaded = false;
 	var Selected_Dep = false;
 	var Selected_Des = false;
 	var value_Dep ="0";
@@ -127,12 +135,17 @@
 	var value_nb = 0;
 	var valeur_de_ran = 0;
 	var ran_txtValue = 0;
+	var jsonData;		//jsonData is in main
+	var table = document.getElementById("display_excel_data");//table is in main
 
-	function changeDestination(j) {
-		// confirm(valeur_de_dep.selectedIndex - 1);
-		// confirm(valeur_de_des.selectedIndex - 1);
-		confirm(j);
+	function showNewDestination(rangNewDest) {
+		jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
+		confirm("New Dest for rang " + rangNewDest + " : " + jsonData[rangNewDest].Position);
+		return;
+			// }
+		// }
 	}
+
 
 	//Medthod to search anything
 	function filter() {
@@ -205,7 +218,7 @@
 
 	function valide_Dep(x) {
 		//upload();
-		if ( fileSelected == true) {
+		if ( fileToUploadSelected == true) {
 			Selected_Dep = true;
 			document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
 		}
@@ -216,7 +229,7 @@
 	});
 
 	function valide_Des(x) {
-		if ( fileSelected == true) {
+		if ( fileToUploadSelected == true) {
 			Selected_Des = true
 			document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
 		}
@@ -227,13 +240,10 @@
 	});
 
 	function sortTable(n){
-
 		const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-
 		const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
 			v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
 			)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-
 		// do the work...
 		document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
 			const table = th.closest('table');
@@ -247,6 +257,8 @@
 	function upload() {
 		var files = document.getElementById('file_upload').files;
 		if(files.length==0){
+			fileToUploadSelected = false;
+			fileUpLoaded = false;
 			alert("Please choose any file...");
 			return;
 		}
@@ -255,9 +267,12 @@
 		if (extension == '.XLS' || extension == '.XLSX') {
 				//Here calling another method to read excel file into json
 				excelFileToJSON(files[0]);
-				fileSelected = true;
+				fileToUploadSelected = true;
+				fileUpLoaded = true;
 		}else{
 			alert("Please select a valid excel file.");
+			fileToUploadSelected = false;
+			fileUpLoaded = false;
 		}
 	}
 
@@ -275,7 +290,7 @@
 						var result = {};
 						var firstSheetName = workbook.SheetNames[0];
 						//reading only first sheet data
-						var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+						jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
 						//displaying the json result into HTML table
 						displayJsonToHtmlTable(jsonData);
 						}
@@ -286,7 +301,7 @@
 
 	//Method to display the data in HTML Table
 	function displayJsonToHtmlTable(jsonData){
-		var table=document.getElementById("display_excel_data");
+		//var table=document.getElementById("display_excel_data");
 		if(jsonData.length>0){
 				// <th onclick="sortTable(0)">Name</th>
 				// var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
@@ -296,7 +311,7 @@
 						htmlData+='<tr><td>'+row["Rang"]+'</td>'
 							// <td>'+row["Référence"]+'</td><td>'
 								// +row["Référence"]
-								+'<td><button class="click_reference" onclick="changeDestination('+ (i+1) +')">'+row["Référence"]+'</button></td>'
+								+'<td><button class="click_reference" onclick="showNewDestination('+ (i+1) +')">'+row["Référence"]+'</button></td>'
 								+'<td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td></tr>';
 				}
 				table.innerHTML=htmlData;
