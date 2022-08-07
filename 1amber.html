@@ -7,6 +7,7 @@
 		<title>XLSX For pointeur </title>
 		<link rel="stylesheet" href="mystyle.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+		<!-- <script src="myscript.js"></script> -->
 	</head>
 
 	<body>
@@ -65,6 +66,7 @@
 	</body>
 </html>
 
+<!-- // à coller dans myscript.js mais ca marche po -->
 <script>
 	const btn_dep       = document.querySelector('#btndep');
 	const valeur_de_dep = document.querySelector('#depart');
@@ -84,6 +86,9 @@
 	var ran_txtValue = 0;
 	var jsonData;		//jsonData is in main
 	var table = document.getElementById("display_excel_data");//table is in main
+
+	//var fs = require('fs');
+	//const fs = require('fs');
 
 	//funtion advancedbuttonvalue
 	// var message = 'ça va ?';
@@ -269,9 +274,3 @@
 		}
 	}
 </script>
-
-<!--
-<input type="button" id="upload" value="Upload" onclick="UploadProcess()" />
-<button onclick="upload()">Upload</button>
-<button id="btndep"> Save </button>
--->
