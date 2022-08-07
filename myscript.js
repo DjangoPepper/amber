@@ -15,16 +15,112 @@ var value_nb = 0;
 var valeur_de_ran = 0;
 var ran_txtValue = 0;
 var jsonData;		//jsonData is in main
-var table = document.getElementById("display_excel_data");//table is in main
+//var table = document.getElementById("display_excel_data");//table is in main
 
-function showNewDestination(rangNewDest) {
-    jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-    confirm("New Dest for rang " + rangNewDest + " : " + jsonData[rangNewDest].Position);
-    return;
-        // }
-    // }
+//Method to display the data in HTML Table
+function displayJsonToHtmlTable(jsonData){
+    var table=document.getElementById("display_excel_data");
+    if(jsonData.length>0){
+            // <th onclick="sortTable(0)">Name</th>
+            // var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
+            var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
+            for(var i=0;i<jsonData.length;i++){
+                    var row=jsonData[i];
+                    htmlData+='<tr><td>'+row["Rang"]+'</td>'
+                        // <td>'+row["Référence"]+'</td><td>'
+                            // +row["Référence"]
+                            +'<td><button class="click_reference" onclick="showNewDestination('+ (i+1) +')">'+row["Référence"]+'</button></td>'
+                            +'<td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td></tr>';
+            }
+            table.innerHTML=htmlData;
+            // console.log(htmlData)
+    }else{
+            table.innerHTML='There is no data in Excel';
+    }
 }
 
+//Method to read excel file and convert it into JSON
+function excelFileToJSON(file){
+    try {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = function(e) {
+
+                var data = e.target.result;
+                var workbook = XLSX.read(data, {
+                    type : 'binary'
+                });
+                var result = {};
+                var firstSheetName = workbook.SheetNames[0];
+                //reading only first sheet data
+                jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+                //displaying the json result into HTML table
+                displayJsonToHtmlTable(jsonData);
+                }
+        }catch(e){
+            console.error(e);
+        }
+}
+
+// Method to upload a valid excel file
+function upload() {
+    var files = document.getElementById('file_upload').files;
+    if(files.length==0){
+        fileToUploadSelected = false;
+        fileUpLoaded = false;
+        alert("Please choose any file...");
+        return;
+    }
+    var filename = files[0].name;
+    var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+    if (extension == '.XLS' || extension == '.XLSX') {
+            //Here calling another method to read excel file into json
+            excelFileToJSON(files[0]);
+            fileToUploadSelected = true;
+            fileUpLoaded = true;
+    }else{
+        alert("Please select a valid excel file.");
+        fileToUploadSelected = false;
+        fileUpLoaded = false;
+    }
+}
+
+function valide_Dep(x) {
+    //upload();
+    if ( fileToUploadSelected == true) {
+        Selected_Dep = true;
+        document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
+    }
+}
+
+Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
+    j.addEventListener("click", valide_Dep);
+});
+
+function valide_Des(x) {
+    if ( fileToUploadSelected == true) {
+        Selected_Des = true
+        document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
+    }
+}
+
+Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
+    i.addEventListener("click", valide_Des);
+});
+
+function sortTable(n){
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+        )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+    // do the work...
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => table.appendChild(tr) );
+    })));
+}
 
 //Medthod to search anything
 function filter() {
@@ -88,114 +184,17 @@ function filter() {
     }
 }
 
-//Here are theworking functions
+// for moving items from a place to another.
+function showNewDestination(rangNewDest) {
+    jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
+    confirm("New Dest for rang " + rangNewDest + " : " + jsonData[rangNewDest].Position);
+    //return;
+}
+
+
+//Here are the working filters functions
 btn_des.onclick = (event) => {
     event.preventDefault();
     valide_Dep();
     valide_Des();
 };
-
-function valide_Dep(x) {
-    //upload();
-    if ( fileToUploadSelected == true) {
-        Selected_Dep = true;
-        document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
-    }
-}
-
-Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
-    j.addEventListener("click", valide_Dep);
-});
-
-function valide_Des(x) {
-    if ( fileToUploadSelected == true) {
-        Selected_Des = true
-        document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
-    }
-}
-
-Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
-    i.addEventListener("click", valide_Des);
-});
-
-function sortTable(n){
-    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-        )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-    // do the work...
-    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-        const table = th.closest('table');
-        Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-            .forEach(tr => table.appendChild(tr) );
-    })));
-}
-
-// Method to upload a valid excel file
-function upload() {
-    var files = document.getElementById('file_upload').files;
-    if(files.length==0){
-        fileToUploadSelected = false;
-        fileUpLoaded = false;
-        alert("Please choose any file...");
-        return;
-    }
-    var filename = files[0].name;
-    var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
-    if (extension == '.XLS' || extension == '.XLSX') {
-            //Here calling another method to read excel file into json
-            excelFileToJSON(files[0]);
-            fileToUploadSelected = true;
-            fileUpLoaded = true;
-    }else{
-        alert("Please select a valid excel file.");
-        fileToUploadSelected = false;
-        fileUpLoaded = false;
-    }
-}
-
-//Method to read excel file and convert it into JSON
-function excelFileToJSON(file){
-        try {
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-            reader.onload = function(e) {
-
-                    var data = e.target.result;
-                    var workbook = XLSX.read(data, {
-                        type : 'binary'
-                    });
-                    var result = {};
-                    var firstSheetName = workbook.SheetNames[0];
-                    //reading only first sheet data
-                    jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                    //displaying the json result into HTML table
-                    displayJsonToHtmlTable(jsonData);
-                    }
-            }catch(e){
-                console.error(e);
-            }
-}
-
-//Method to display the data in HTML Table
-function displayJsonToHtmlTable(jsonData){
-    //var table=document.getElementById("display_excel_data");
-    if(jsonData.length>0){
-            // <th onclick="sortTable(0)">Name</th>
-            // var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
-            var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
-            for(var i=0;i<jsonData.length;i++){
-                    var row=jsonData[i];
-                    htmlData+='<tr><td>'+row["Rang"]+'</td>'
-                        // <td>'+row["Référence"]+'</td><td>'
-                            // +row["Référence"]
-                            +'<td><button class="click_reference" onclick="showNewDestination('+ (i+1) +')">'+row["Référence"]+'</button></td>'
-                            +'<td>'+row["Poids"]+'</td><td>'+row["Position"]+'</td></tr>';
-            }
-            table.innerHTML=htmlData;
-            // console.log(htmlData)
-    }else{
-            table.innerHTML='There is no data in Excel';
-    }
-}
