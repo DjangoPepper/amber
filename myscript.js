@@ -84,7 +84,15 @@ function upload() {
         fileUpLoaded = false;
     }
 }
-
+function ready(){
+	if ( fileToUploadSelected == true) {
+        Selected_Dep = true;
+		Selected_Des = true;
+		document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
+		document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex - 1);
+	}
+}
+/*
 function valide_Dep(x) {
     //upload();
     if ( fileToUploadSelected == true) {
@@ -92,18 +100,18 @@ function valide_Dep(x) {
         document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
     }
 }
-
+ */
 Array.from(document.getElementsByClassName("class-Dep")).forEach(function(j){
     j.addEventListener("click", valide_Dep);
 });
-
+/*/*
 function valide_Des(x) {
     if ( fileToUploadSelected == true) {
-        Selected_Des = true
-        document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex -1);
+        Selected_Des = true;
+        document.getElementById("choix_Des").innerHTML = (valeur_de_des.selectedIndex - 1);
     }
 }
-
+ */
 Array.from(document.getElementsByClassName("class-Des")).forEach(function(i){
     i.addEventListener("click", valide_Des);
 });
@@ -191,10 +199,11 @@ function showNewDestination(rangNewDest) {
     //return;
 }
 
-
+/*
 //Here are the working filters functions
 btn_des.onclick = (event) => {
     event.preventDefault();
     valide_Dep();
     valide_Des();
 };
+ */
