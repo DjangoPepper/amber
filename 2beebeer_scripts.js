@@ -1,4 +1,5 @@
 //2beebeer_script
+//import { writeFile, writeFileSync } from 'fs';
 
 const btn_dep = document.querySelector('#btndep');
 const valeur_de_dep = document.querySelector('#depart');
@@ -19,7 +20,9 @@ var ran_txtValue = 0;
 var jsonData;		//jsonData is in main
 var table = document.getElementById("display_excel_data");//table is in main
 var jsDlenght = 0;
-
+var filename ="";
+var Display_reload = false;
+var filter_display = 0;
 //funtion advancedbuttonvalue
 // var message = 'ça va ?';
 // document.write('<input type="text" value="' + message + '" />');
@@ -41,13 +44,22 @@ function filter() {
 	value_cu = 0;
 	poi_txtValue = 0;
 	ran_txtValue = 0;
-/*
-	if (Selected_Dep == true){
-		input_display = document.getElementById("myinput_display");
+	/*
+		if (Selected_Dep == true){
+			input_display = document.getElementById("myinput_display");
+		} else {
+			input_display = (valeur_de_dep.selectedIndex - 1)
+		}
+	*/
+	if (Display_reload == true) {
+		Display_reload = false;
+		//input_display = (valeur_de_dep.selectedIndex - 1);
+		input_display = filter_display;
 	} else {
-		input_display = (valeur_de_dep.selectedIndex - 1)
+		input_display = document.getElementById("myinput_display");
 	}
-*/
+
+
 	for (i = 0; i < tr.length; i++) {
 		let shouldDisplay = true;
 		td_ran = tr[i].getElementsByTagName("td")[0];
@@ -148,7 +160,7 @@ function upload() {
 		alert("Please choose any file...");
 		return;
 	}
-	var filename = files[0].name;
+	filename = files[0].name;
 	var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
 	if (extension == '.XLS' || extension == '.XLSX') {
 		//Here calling another method to read excel file into json
@@ -192,18 +204,18 @@ function displayJsonToHtmlTable(jsonData) {
 		var htmlData = '<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
 		//jsDlenght = jsonData.length + 1;
 		// for (var i = 0; i < jsonData.length; i++) {
-			for (var i = 0; i < jsonData.length; i++) {
+		for (var i = 0; i < jsonData.length; i++) {
 			var row = jsonData[i];
 			htmlData += '<tr><td>' + row["Rang"] + '</td>'
-				+ '<td><button class="click_reference" onclick="showNewDestination(' + (i+0) + ')">' + row["Référence"] + '</button></td>'
+				+ '<td><button class="click_reference" onclick="showNewDestination(' + (i + 0) + ')">' + row["Référence"] + '</button></td>'
 				+ '<td>' + row["Poids"] + '</td><td>' + row["Position"] + '</td></tr>';
 		}
 		//add an empty last line
-		htmlData += '<tr>	 <td>' + (jsonData.length + 1) + '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-					'</td></tr>';
+		htmlData += '<tr>	 <td>' + (jsonData.length + 1) + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'</td></tr>';
 		table.innerHTML = htmlData;
 		// console.log(htmlData)
 	} else {
@@ -211,19 +223,31 @@ function displayJsonToHtmlTable(jsonData) {
 	}
 }
 
-
+//Method pour deplacer une reference
 function showNewDestination(rangNewDest) {
 	//rangNewDest = rangNewDest+1;
 	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("For rang : " + (rangNewDest +1 )+	//le rang commence à 1 pas à 0
-			" coils n° : " + jsonData[rangNewDest].Référence +
-			", New dest : " + jsonData[rangNewDest].Position
-			);
+	confirm("For rang : " + (rangNewDest + 1) +	//le rang commence à 1 pas à 0
+		" coils n° : " + jsonData[rangNewDest].Référence +
+		", New dest : " + jsonData[rangNewDest].Position
+	);
 	displayJsonToHtmlTable(jsonData);
+	Display_reload = true;
+	filter();
 }
 
-
-
-// <input type="button" id="upload" value="Upload" onclick="UploadProcess()" />
-// <button onclick="upload()">Upload</button>
-// <button id="btndep"> Save </button>
+function savexlsfile() {
+	if(fileUpLoaded == true){
+		var saved_filename = filename;
+		alert (saved_filename);
+		// import { writeFile, writeFileSync } from 'fs';
+		writeFile("/tmp/test", "Hey there!", function (err) {
+			if (err) {
+				return console.log(err);
+			}
+			console.log("The file was saved!");
+		});
+		// Or
+		//writeFileSync('/tmp/test-sync', 'Hey there!');
+	}
+}
