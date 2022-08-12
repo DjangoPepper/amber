@@ -41,11 +41,13 @@ function filter() {
 	value_cu = 0;
 	poi_txtValue = 0;
 	ran_txtValue = 0;
+/*
 	if (Selected_Dep == true){
 		input_display = document.getElementById("myinput_display");
 	} else {
 		input_display = (valeur_de_dep.selectedIndex - 1)
 	}
+*/
 	for (i = 0; i < tr.length; i++) {
 		let shouldDisplay = true;
 		td_ran = tr[i].getElementsByTagName("td")[0];
@@ -100,9 +102,11 @@ btn_des.onclick = (event) => {
 
 function valide_Dep(x) {
 	//upload();
-	if (fileToUploadSelected == true) {
+	if (fileToUploadSelected == true && fileUpLoaded == true) {
 		Selected_Dep = true;
+		//alert(valeur_de_dep.selectedIndex - 1);
 		document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
+		document.getElementById("myinput_display").innerHTML = (valeur_de_dep.selectedIndex - 1);
 	}
 }
 
@@ -183,7 +187,7 @@ function excelFileToJSON(file) {
 
 //Method to display the data in HTML Table
 function displayJsonToHtmlTable(jsonData) {
-	var table = document.getElementById("display_excel_data");
+	//var table = document.getElementById("display_excel_data");
 	if (jsonData.length > 0) {
 		var htmlData = '<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
 		//jsDlenght = jsonData.length + 1;
@@ -215,6 +219,7 @@ function showNewDestination(rangNewDest) {
 			" coils n° : " + jsonData[rangNewDest].Référence +
 			", New dest : " + jsonData[rangNewDest].Position
 			);
+	displayJsonToHtmlTable(jsonData);
 }
 
 
