@@ -211,7 +211,7 @@ function displayJsonToHtmlTable(jsonData) {
 function showNewDestination(rangNewDest) {
 	//rangNewDest = rangNewDest+1;
 	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("For rang : " + (rangNewDest +1 )+
+	confirm("For rang : " + (rangNewDest +1 )+	//le rang commence à 1 pas à 0
 			" coils n° : " + jsonData[rangNewDest].Référence +
 			", New dest : " + jsonData[rangNewDest].Position
 			);
