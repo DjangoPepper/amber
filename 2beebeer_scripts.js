@@ -18,19 +18,11 @@ var valeur_de_ran = 0;
 var ran_txtValue = 0;
 var jsonData;		//jsonData is in main
 var table = document.getElementById("display_excel_data");//table is in main
+var jsDlenght = 0;
 
 //funtion advancedbuttonvalue
 // var message = 'ça va ?';
 // document.write('<input type="text" value="' + message + '" />');
-
-function showNewDestination(rangNewDest) {
-	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("For rang : " + rangNewDest +
-			" coils n° : " + jsonData[rangNewDest-1].Référence +
-			", New dest : " + jsonData[rangNewDest].Position
-			);
-}
-
 
 //Medthod to search anything
 function filter() {
@@ -189,10 +181,12 @@ function displayJsonToHtmlTable(jsonData) {
 	var table = document.getElementById("display_excel_data");
 	if (jsonData.length > 0) {
 		var htmlData = '<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
-		for (var i = 0; i < jsonData.length; i++) {
+		//jsDlenght = jsonData.length + 1;
+		// for (var i = 0; i < jsonData.length; i++) {
+			for (var i = 0; i < jsonData.length; i++) {
 			var row = jsonData[i];
 			htmlData += '<tr><td>' + row["Rang"] + '</td>'
-				+ '<td><button class="click_reference" onclick="showNewDestination(' + (i + 1) + ')">' + row["Référence"] + '</button></td>'
+				+ '<td><button class="click_reference" onclick="showNewDestination(' + (i+0) + ')">' + row["Référence"] + '</button></td>'
 				+ '<td>' + row["Poids"] + '</td><td>' + row["Position"] + '</td></tr>';
 		}
 		//add an empty last line
@@ -206,6 +200,16 @@ function displayJsonToHtmlTable(jsonData) {
 	} else {
 		table.innerHTML = 'There is no data in Excel';
 	}
+}
+
+
+function showNewDestination(rangNewDest) {
+	rangNewDest = rangNewDest+1;
+	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
+	confirm("For rang : " + rangNewDest +
+			" coils n° : " + jsonData[rangNewDest-1].Référence +
+			", New dest : " + jsonData[rangNewDest].Position
+			);
 }
 
 
