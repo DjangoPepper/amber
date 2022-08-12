@@ -25,7 +25,10 @@ var table = document.getElementById("display_excel_data");//table is in main
 
 function showNewDestination(rangNewDest) {
 	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("New Dest for rang " + rangNewDest + " : " + jsonData[rangNewDest].Position);
+	confirm("For rang : " + rangNewDest +
+			" coils n° : " + jsonData[rangNewDest-1].Référence +
+			", New dest : " + jsonData[rangNewDest].Position
+			);
 }
 
 
@@ -183,19 +186,21 @@ function excelFileToJSON(file) {
 
 //Method to display the data in HTML Table
 function displayJsonToHtmlTable(jsonData) {
-	//var table=document.getElementById("display_excel_data");
+	var table = document.getElementById("display_excel_data");
 	if (jsonData.length > 0) {
-		// <th onclick="sortTable(0)">Name</th>
-		// var htmlData='<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th><th onclick="sortTable(3)">Destination</th></tr>';
 		var htmlData = '<tr><th onclick="sortTable(0)">Rang</th><th onclick="sortTable(1)">Référence</th><th>Poids</th><th onclick="sortTable(2)">Position</th></tr>';
 		for (var i = 0; i < jsonData.length; i++) {
 			var row = jsonData[i];
 			htmlData += '<tr><td>' + row["Rang"] + '</td>'
-				// <td>'+row["Référence"]+'</td><td>'
-				// +row["Référence"]
 				+ '<td><button class="click_reference" onclick="showNewDestination(' + (i + 1) + ')">' + row["Référence"] + '</button></td>'
 				+ '<td>' + row["Poids"] + '</td><td>' + row["Position"] + '</td></tr>';
 		}
+		//add an empty last line
+		htmlData += '<tr>	 <td>' +""+ '</td>' +""+
+							'<td>' +""+ '</td>' +""+
+							'<td>' +""+ '</td>' +""+
+							'<td>' +""+ '</td>' +""+
+					'</td></tr>';
 		table.innerHTML = htmlData;
 		// console.log(htmlData)
 	} else {
