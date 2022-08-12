@@ -41,6 +41,11 @@ function filter() {
 	value_cu = 0;
 	poi_txtValue = 0;
 	ran_txtValue = 0;
+	if (Selected_Dep == true){
+		input_display = document.getElementById("myinput_display");
+	} else {
+		input_display = (valeur_de_dep.selectedIndex - 1)
+	}
 	for (i = 0; i < tr.length; i++) {
 		let shouldDisplay = true;
 		td_ran = tr[i].getElementsByTagName("td")[0];
@@ -204,10 +209,10 @@ function displayJsonToHtmlTable(jsonData) {
 
 
 function showNewDestination(rangNewDest) {
-	rangNewDest = rangNewDest+1;
+	//rangNewDest = rangNewDest+1;
 	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("For rang : " + rangNewDest +
-			" coils n° : " + jsonData[rangNewDest-1].Référence +
+	confirm("For rang : " + (rangNewDest +1 )+
+			" coils n° : " + jsonData[rangNewDest].Référence +
 			", New dest : " + jsonData[rangNewDest].Position
 			);
 }
