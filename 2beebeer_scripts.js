@@ -174,7 +174,7 @@ function excelFileToJSON(file) {
 			});
 			var result = {};
 			var firstSheetName = workbook.SheetNames[0];
-			//reading only first sheet data
+			//reading on ly first sheet data
 			jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
 			//displaying the json result into HTML table
 			displayJsonToHtmlTable(jsonData);
@@ -196,7 +196,7 @@ function displayJsonToHtmlTable(jsonData) {
 				+ '<td>' + row["Poids"] + '</td><td>' + row["Position"] + '</td></tr>';
 		}
 		//add an empty last line
-		htmlData += '<tr>	 <td>' +""+ '</td>' +""+
+		htmlData += '<tr>	 <td>' + (jsonData.length + 1) + '</td>' +""+
 							'<td>' +""+ '</td>' +""+
 							'<td>' +""+ '</td>' +""+
 							'<td>' +""+ '</td>' +""+
