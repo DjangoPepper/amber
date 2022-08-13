@@ -4,16 +4,28 @@
 
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Beer For pointeur </title>
+		<title>Fear For pointeur </title>
 		<link rel="stylesheet" href="2beebeer.css">
 	</head>
 
 	<body>
-		<h1>Work with beer</h1>
+		<h1>Work without fear</h1>
 		<!-- Input element to upload an excel file -->
 		<input type="file" id="file_upload" />
 		<button onclick="upload()">UpLoaD</button>
-		<button onclick="savexlsfile()">SaVe </button>
+		<!-- <button onclick="savexlsfile()">SaVe </button> -->
+		<br>
+		<!-- <p align="justify/left/right/center"> -->
+
+				<p align="justify">
+					<form onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
+						<input type="text" cols=50 name="name_du_chantier" value="navire" id="id_name_du_navire">
+						<!-- <textarea rows=1 cols=50 name="text">Please name in this box.</textarea> -->
+						<input type="submit" value="Backup">
+					</form>
+					<button onclick="export2json()">backup to json  file</button>
+					<button onclick="export2xls()">Export to excel file</button>
+				</p>
 		<br>
 		<br>
 		<form>

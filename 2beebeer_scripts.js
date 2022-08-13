@@ -236,7 +236,7 @@ function showNewDestination(rangNewDest) {
 	filter();
 }
 
-function savexlsfile() {
+function export2xls() {
 	if (fileUpLoaded == true) {
 		// var saved_filename = filename;
 		//alert (saved_filename);
@@ -251,20 +251,17 @@ function savexlsfile() {
 		//writeFileSync('/tmp/test-sync', 'Hey there!');
 	}
 }
+
+//Method to export current Json file into a named file
 function export2json() {
-	// const data = {
-	// 	a: '111',
-	// 	b: '222',
-	// 	c: '333'
-	// };
-	//jsonData
 	const a = document.createElement("a");
 	a.href = URL.createObjectURL(
 		new Blob([JSON.stringify(jsonData, null, 2)], {
 			type: "application/json"
 		})
 	);
-	a.setAttribute("download", "RANdata.json");
+	jsonfileNameToeXport = id_name_du_navire.value + ".json";
+	a.setAttribute("download", jsonfileNameToeXport);
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
