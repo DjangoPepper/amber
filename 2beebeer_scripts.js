@@ -20,7 +20,7 @@ var ran_txtValue = 0;
 var jsonData;		//jsonData is in main
 var table = document.getElementById("display_excel_data");//table is in main
 var jsDlenght = 0;
-var filename ="";
+var filename = "";
 var Display_reload = false;
 var filter_display = 0;
 //funtion advancedbuttonvalue
@@ -237,7 +237,7 @@ function showNewDestination(rangNewDest) {
 }
 
 function savexlsfile() {
-	if(fileUpLoaded == true){
+	if (fileUpLoaded == true) {
 		// var saved_filename = filename;
 		//alert (saved_filename);
 		// import { writeFile, writeFileSync } from 'fs';
@@ -250,4 +250,22 @@ function savexlsfile() {
 		// Or
 		//writeFileSync('/tmp/test-sync', 'Hey there!');
 	}
+}
+function export2json() {
+	// const data = {
+	// 	a: '111',
+	// 	b: '222',
+	// 	c: '333'
+	// };
+	//jsonData
+	const a = document.createElement("a");
+	a.href = URL.createObjectURL(
+		new Blob([JSON.stringify(jsonData, null, 2)], {
+			type: "application/json"
+		})
+	);
+	a.setAttribute("download", "RANdata.json");
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
 }
