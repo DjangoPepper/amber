@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Beer For pointeur </title>
+		<link rel="stylesheet" href="2beebeer.css">
+	</head>
+
+	<body>
+		<h1>Work with beer</h1>
+		<!-- Input element to upload an excel file -->
+		<input type="file" id="file_upload" />
+		<button onclick="upload()">UpLoaD</button>
+		<button onclick="savexlsfile()">SaVe </button>
+		<br>
+		<br>
+		<form>
+			<label for="depart">Mouvement de </label>
+			<select id="depart">
+				<option value="99"> select depuis</option>
+				<option value="0" class="class_Dep" onclick="valide_Dep()">Stock</option>
+				<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
+				<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
+				<option value="3" class="class_Dep" onclick="valide_Dep()">Hold3</option>
+				<option value="4" class="class_Dep" onclick="valide_Dep()">Hold4</option>
+				<option value="5" class="class_Dep" onclick="valide_Dep()">Hold5</option>
+			</select>
+
+			<!-- <button id="btndep"> Save </button> -->
+
+			<label for="destination"> vers </label>
+			<select id="destination">
+				<option value="99"> select vers</option>
+				<option value="0" class="class-Des" onclick="valide_Des()">Stock</option>
+				<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
+				<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
+				<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
+				<option value="4" class="class-Des" onclick="valide_Des()">Cale4</option>
+				<option value="5" class="class-Des" onclick="valide_Des()">Cale5</option>
+			</select>
+			&nbsp
+			<button id="btndes"> REFRESH </button>
+		</form>
+		<br>
+
+		<h1>
+			Search <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in to find">
+			Display <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
+		</h1>
+
+		<br>
+			CALCULS <!-- DEPUIS : <span id="choix_Dep"></span> -->
+		<br>
+			QUANTITES : <span id="id_nb"></span> Piéce(s)
+		<br>
+			CUMUL : <span id="id_cu"></span> Tonne(s)
+		<br>
+			DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
+
+		<!-- table to display the excel data -->
+		<br><br>
+		<table id="display_excel_data" border="1"></table>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+        <script src="./2beebeer_scripts.js"></script>
+	</body>
+</html>
