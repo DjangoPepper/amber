@@ -1,38 +1,78 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <style>
-        form * {
-            display: block;
-            margin: 10px;
-        }
-    </style>
-    <script language="Javascript">
-        function download(filename, text) {
-            var pom = document.createElement('a');
-            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Convert JSON to XLS and Download</title>
 
-                encodeURIComponent(text));
-            pom.setAttribute('download', filename);
 
-            pom.style.display = 'none';
-            document.body.appendChild(pom);
-
-            pom.click();
-
-            document.body.removeChild(pom);
-        }
-    </script>
 </head>
 
-<body>
+<body class="container">
+	<script>
+		$(function () {
+			var createXLSLFormatObj = [];
 
-    <form onsubmit="download(this['name'].value, this['text'].value)">
-        <input type="text" name="name" value="test.txt">
-        <textarea rows=3 cols=50 name="text">Please type in this box.</textarea>
-        <input type="submit" value="Download">
-    </form>
+			/* XLS Head Columns */
+			var xlsHeader = ["Rang", "Référence", "Poids", "Position"];
+
+			/* XLS Rows Data */
+			var xlsRows = [
+				{
+					"Rang": 410,
+					"Référence": "2027F0851",
+					"Poids": 21.61,
+					"Position": 0
+				},
+				{
+					"Rang": 444,
+					"Référence": "2027H0801",
+					"Poids": 20.31,
+					"Position": 0
+				},
+				{
+					"Rang": 459,
+					"Référence": "2027H0981",
+					"Poids": 25.25,
+					"Position": 0
+				},
+			];
+
+			createXLSLFormatObj.push(xlsHeader);
+			$.each(xlsRows, function (index, value) {
+				var innerRowData = [];
+				$("tbody").append('<tr><td>' + value.Rang + '</td><td>' + value.Référence + '</td><td>' + value.Poids + '</td><td>' + value.Position +'</td></tr>');
+				$.each(value, function (ind, val) {
+
+					innerRowData.push(val);
+				});
+				createXLSLFormatObj.push(innerRowData);
+			});
+
+
+			/* File Name */
+			var filename = "FreakyJSON.xlsx";
+
+			/* Sheet Name */
+			var ws_name = "FreakySheet";
+
+			if (typeof console !== 'undefined') console.log(new Date());
+			var wb = XLSX.utils.book_new(),
+				ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+
+			/* Add worksheet to workbook */
+			XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+			/* Write workbook and Download */
+			if (typeof console !== 'undefined') console.log(new Date());
+			XLSX.writeFile(wb, filename);
+			if (typeof console !== 'undefined') console.log(new Date());
+
+		});
+	</script>
+
+
 </body>
 
 </html>

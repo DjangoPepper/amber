@@ -237,19 +237,7 @@ function showNewDestination(rangNewDest) {
 }
 
 function export2xls() {
-	if (fileUpLoaded == true) {
-		// var saved_filename = filename;
-		//alert (saved_filename);
-		// import { writeFile, writeFileSync } from 'fs';
-		writeFile("saved_json", "Hey there!", function (err) {
-			if (err) {
-				return console.log(err);
-			}
-			console.log("The file was saved!");
-		});
-		// Or
-		//writeFileSync('/tmp/test-sync', 'Hey there!');
-	}
+	
 }
 
 //Method to export current Json file into a named file
