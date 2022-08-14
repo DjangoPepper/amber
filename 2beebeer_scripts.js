@@ -237,7 +237,73 @@ function showNewDestination(rangNewDest) {
 }
 
 function export2xls() {
-	
+		// $(function () {
+			//file's name to export
+			var jsonfileNameToeXport = id_name_du_navire.value + ".json";
+
+			var createXLSLFormatObj = [];
+
+			/* XLS Head Columns */
+			var xlsHeader = ["Rang", "Référence", "Poids", "Position"];
+
+			/* XLS Rows Data */
+/* 			var xlsRows = [
+				{
+					"Rang": 410,
+					"Référence": "2027F0851",
+					"Poids": 21.61,
+					"Position": 0
+				},
+				{
+					"Rang": 444,
+					"Référence": "2027H0801",
+					"Poids": 20.31,
+					"Position": 0
+				},
+				{
+					"Rang": 459,
+					"Référence": "2027H0981",
+					"Poids": 25.25,
+					"Position": 0
+				},
+			];
+			 */
+
+			createXLSLFormatObj.push(xlsHeader);
+			$.each(jsonData, function (index, value) {
+				var innerRowData = [];
+				$("tbody").append('<tr><td>' + value.Rang + '</td><td>' + value.Référence + '</td><td>' + value.Poids + '</td><td>' + value.Position +'</td></tr>');
+				$.each(value, function (ind, val) {
+					innerRowData.push(val);
+				});
+				createXLSLFormatObj.push(innerRowData);
+			});
+
+
+			/* File Name */
+			var filename = id_name_du_navire.value + ".xls";
+
+			/* Sheet Name */
+			var ws_name = "FirstSheet";
+
+			if (typeof console !== 'undefined'){
+				console.log(new Date());
+				var wb = XLSX.utils.book_new();
+				var	ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+			}
+			/* Add worksheet to workbook */
+			XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+			/* Write workbook and Download */
+			if (typeof console !== 'undefined') {
+				console.log(new Date());
+				XLSX.writeFile(wb, filename);
+			}
+
+			if (typeof console !== 'undefined') {
+				console.log(new Date());
+			}
+		// });
 }
 
 //Method to export current Json file into a named file
