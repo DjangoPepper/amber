@@ -224,3 +224,8 @@
 	.show {
 		display: block;
 	}
+	
+	#myform_Name {
+		text-align: center;
+		min-width: 60px;
+	}
