@@ -55,22 +55,24 @@
 					<input type="file" id="file_upload_Excel" onchange="upload_Excel()"/>
 				</div>
 			</div>
+
 			<a href="#" onclick="export2xls()">Export Excel</a>
 			<br>
 			<a href="#" onclick="export2json()">Backup/Export  Json</a>
-			<a href="#">Restore/Import   Json</a>
 			<br>
 			<br>
 			<div class="dropdown">
-				<button onclick="myDropFunction_Name()" class="dropbtn">Backup Name</button>
-				<div id="myDropdown_Name" class="dropdown-content">
-					<input type="file" id="file_upload_json" onchange="upload_Json()"/>
-				</div>
-				<form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
-					<input type="text" name="name_du_chantier" value="navire" id="id_name_du_navire">
-				</form>
+				<button onclick="myDropFunction_Name()" class="dropbtn">Restore/Import Json</button>
+				<div id="myDropdown_Json" class="dropdown-content">
+					<input type="file" id="file_upload_Json" onchange="upload_Json()"/>
 				</div>
 			</div>
+			<!-- <a href="#">Name your Json</a> -->
+			<a>Name your Json</a>
+			<form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
+				<input type="text" name="name_du_chantier" value="navire" id="id_name_du_navire">
+			</form>
+
 			<!-- <a href="#">Backup Name</a>
 			<form id="myform_name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
 				<input type="text" name="name_du_chantier" value="navire" id="id_name_du_navire">

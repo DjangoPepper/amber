@@ -53,7 +53,7 @@ function myDropFunction_Excel() {
 }
 
 function myDropFunction_Name() {
-	document.getElementById("myDropdown_Name").classList.toggle("show");
+	document.getElementById("myDropdown_Json").classList.toggle("show");
 }
 
 

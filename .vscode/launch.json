@@ -28,20 +28,8 @@
         {
             "type": "pwa-chrome",
             "request": "launch",
-            "name": "Open cataplasme",
-            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\cataplasme.html"
-        },
-        {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Open 1amber",
-            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\1amber.html"
-        },
-        {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Open 2beebeer",
-            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\2beebeer.html"
+            "name": "Launch index",
+            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\index.html"
         }
     ]
 }

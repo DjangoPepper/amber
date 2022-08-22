@@ -174,7 +174,7 @@ function upload_Excel() {
 
 // Method to import a valid json file
 function upload_Json() {
-	var files = document.getElementById('file_upload_json').files;
+	var files = document.getElementById('file_upload_Json').files;
 	if (files.length == 0) {
 		fileToimportSelected = false;
 		fileimported = false;
