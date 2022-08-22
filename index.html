@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- TODOINSERER LES SCRIPTS
-	DOIT AJOUTER LOAD JSON
+<!-- TODO totaux doit etre vide pu 0 si display pas choisit
+	topinav ne doit pas appaitre si excel ou json pas  importé
 -->
 <head>
 	<meta charset="UTF-8">
@@ -28,7 +28,7 @@
 			</select>
 		</form> -->
 			<form name="myform_final" id="myform_final" method="post">
-				<select id="id_final" name="sel_final" onchange="submitform()" ;>
+				<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
 					<option value="99"> vers </option>
 					<option value="0" class="class_final" onclick="click_final()">Stock</option>
 					<option value="1" class="class_final" onclick="click_final()">Cale1</option>
