@@ -1,28 +1,80 @@
-<html>
-		<head>
-		<script language="JavaScript1.1">
 
-		function getValue(){
-			alert("The value of this button is " + document.myForm.element.value);
-		}
+<!DOCTYPE html>
+<html lang="en">
 
-		</script>
-		</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>bootstrap in hotel </title>
+		<link rel="stylesheet" href="B1.css">
+	</head>
 
-		<body>
-		<form name="myForm">
-			<!-- <input type=TEXT value="First Box" name="myText"> -->
-			<input type=SUBMIT value="Cale1" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale2" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale3" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale4" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale5" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale6" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale7" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Cale9" name="mySubmit" onClick='getValue()'>
-			<input type=SUBMIT value="Prepa" name="mySubmit" onClick='getValue()'>
+	<body>
+		<header>
+			<form>
+				<label for="depart">Mouvement de </label>
+				<select id="depart">
+					<option value="99"> select depuis</option>
+					<option value="0" class="class_Dep" onclick="valide_Dep()">Stock</option>
+					<option value="1" class="class_Dep" onclick="valide_Dep()">Hold1</option>
+					<option value="2" class="class_Dep" onclick="valide_Dep()">Hold2</option>
+					<option value="3" class="class_Dep" onclick="valide_Dep()">Hold3</option>
+					<option value="4" class="class_Dep" onclick="valide_Dep()">Hold4</option>
+					<option value="5" class="class_Dep" onclick="valide_Dep()">Hold5</option>
+				</select>
+				<!-- <button id="btndep"> Save </button> -->
+
+				<label for="destination"> vers </label>
+				<select id="destination">
+					<option value="99"> select vers</option>
+					<option value="0" class="class-Des" onclick="valide_Des()">Stock</option>
+					<option value="1" class="class-Des" onclick="valide_Des()">Cale1</option>
+					<option value="2" class="class-Des" onclick="valide_Des()">Cale2</option>
+					<option value="3" class="class-Des" onclick="valide_Des()">Cale3</option>
+					<option value="4" class="class-Des" onclick="valide_Des()">Cale4</option>
+					<option value="5" class="class-Des" onclick="valide_Des()">Cale5</option>
+				</select>
+				<button id="btndes"> REFRESH </button>
+			</form>
+			DEPART&nbsp&nbsp : &nbsp<span id="myinput_display"></span> DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
+		</header>
+		<h1>Work in hotel</h1>
+		<!-- Input element to upload an excel file -->
+		<input type="file" id="file_upload" />
+		<button onclick="upload()">UpLoaD</button>
+		<!-- <button onclick="savexlsfile()">SaVe </button> -->
+		<br>
+		<!-- <p align="justify/left/right/center"> -->
+		<form onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
+			<input type="text" cols=50 name="name_du_chantier" value="navire" id="id_name_du_navire">
+			<!-- <textarea rows=1 cols=99 name="text">Please name in this box.</textarea> -->
+			<!-- <input type="submit" value="Backup"> -->
 		</form>
+		<button onclick="export2json()">backup to json  file</button>
+		<button onclick="export2xls()">Export to excel file</button>
+		<br>
+		<br>
+		<br>
+		<h1>
+			REF :  <input type="text" id="myinput_search"  onkeyup="filter()" placeholder="Search.." title="Type in to find">
+			POS :  <input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
+		</h1>
+
+		<footer>
+				CALCULS DEPUIS : <span id="myinput_display"></span>
+				QUANTITES : <span id="id_nb"></span> Piéce(s)
+				CUMUL : <span id="id_cu"></span> Tonne(s)
+		</footer>
+
+		<!-- table to display the excel data -->
 		<br><br>
-		destination: document.myForm.element.value
-		</body>
+		<table id="display_excel_data" border="1"></table>
+
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script> -->
+		<!-- <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script> -->
+        <script src="./xlsx.full.min.js"></script>
+		<script src="./2beebeer_scripts.js"></script>
+		<script src="./jquery-1.12.4.js"></script>
+
+	</body>
 </html>

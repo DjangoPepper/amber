@@ -1,11 +1,10 @@
 node_modules
 .vscode/settings.json
 .gitignore
-.vscode/launch.json
-cerise.html
 
-cerise.json
+
+node_files
+node_modules
 package-lock.json
 package.json
-2amber.html
-~$AMouvementsData.xlsx
+old

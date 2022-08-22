@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "exceljs": "^4.3.0",
-    "filter": "^0.1.1",
-    "fs": "^0.0.1-security",
-    "map": "^1.0.1",
-    "puppeteer": "^15.5.0"
-  }
-}

@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+    {
+        "name": "(gdb) Joindre",
+        "type": "cppdbg",
+        "request": "attach",
+        "program": "entrer le nom du programme, par exemple ${workspaceFolder}/a.exe",,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/path/to/gdb",
+        "setupCommands": [
+            {
+                "description": "Activer l'impression en mode Pretty pour gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description":  "Définir la version désassemblage sur Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+        ]
+    },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Open cataplasme",
+            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\cataplasme.html"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Open 1amber",
+            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\1amber.html"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Open 2beebeer",
+            "file": "c:\\Users\\fr3d\\JSTESTS\\amber\\2beebeer.html"
+        }
+    ]
+}
