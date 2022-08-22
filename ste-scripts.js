@@ -21,9 +21,9 @@ var filename = "";
 var Display_reload = false;
 var filter_display = 0;
 
-//funtion advancedbuttonvalue
-// var message = 'ça va ?';
-// document.write('<input type="text" value="' + message + '" />');
+var cejour = 0;
+/* let date_filename = `any_name_${(new Date().toJSON().slice(0,10))}`
+console.log(`Add here ${date_filename}`); */
 
 //Medthod to search anything
 function filter() {
@@ -257,38 +257,48 @@ function showNewDestination(rangNewDest) {
 	filter();
 }
 
+function formatDate(d)
+{
+    //get the month
+    var month = d.getMonth();
+    //get the day
+    //convert day to string
+    var day = d.getDate().toString();
+    //get the year
+    var year = d.getFullYear();
+
+    //pull the last two digits of the year
+    year = year.toString().substr(-2);
+
+    //increment month by 1 since it is 0 indexed
+    //converts month to a string
+    month = (month + 1).toString();
+
+    //if month is 1-9 pad right with a 0 for two digits
+    if (month.length === 1)
+    {
+        month = "0" + month;
+    }
+
+    //if day is between 1-9 pad right with a 0 for two digits
+    if (day.length === 1)
+    {
+        day = "0" + day;
+    }
+
+    //return the string "MMddyy"
+    return year + month + day;
+}
+
 function export2xls() {
-		// $(function () {
-			//file's name to export
-			var jsonfileNameToeXport = id_name_du_navire.value + ".json";
+
+			// date file's name to export
+			var d = new Date();
+			// var jsonfileNameToeXport = formatDate(d)+"_"+ id_name_du_navire.value + ".xlsx";
 
 			var createXLSLFormatObj = [];
-
 			/* XLS Head Columns */
 			var xlsHeader = ["Rang", "Référence", "Poids", "Position"];
-
-			/* XLS Rows Data */
-/* 			var xlsRows = [
-				{
-					"Rang": 410,
-					"Référence": "2027F0851",
-					"Poids": 21.61,
-					"Position": 0
-				},
-				{
-					"Rang": 444,
-					"Référence": "2027H0801",
-					"Poids": 20.31,
-					"Position": 0
-				},
-				{
-					"Rang": 459,
-					"Référence": "2027H0981",
-					"Poids": 25.25,
-					"Position": 0
-				},
-			];
-			 */
 
 			createXLSLFormatObj.push(xlsHeader);
 			$.each(jsonData, function (index, value) {
@@ -302,7 +312,9 @@ function export2xls() {
 
 
 			/* File Name */
-			var filename = id_name_du_navire.value + ".xls";
+			// var filename = id_name_du_navire.value + ".xls";
+			var filename = formatDate(d)+"_"+ id_name_du_navire.value + ".xlsx";
+			//filename = aujourdhui();
 
 			/* Sheet Name */
 			var ws_name = "FirstSheet";
@@ -335,9 +347,25 @@ function export2json() {
 			type: "application/json"
 		})
 	);
-	jsonfileNameToeXport = id_name_du_navire.value + ".json";
+
+	var d = new Date();
+	var jsonfileNameToeXport = formatDate(d)+"_"+ id_name_du_navire.value + ".json";
+	// jsonfileNameToeXport = id_name_du_navire.value + ".json";
 	a.setAttribute("download", jsonfileNameToeXport);
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
 }
+
+//Method for today's date
+/* function aujourdhui(){
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getYear();
+
+	// today = mm + '/' + dd + '/' + yyyy;
+	cejour = yy + mm ++ dd
+	// document.write(today);
+	jsonfileNameToeXport = cejour + id_name_du_navire.value + ".json";
+} */

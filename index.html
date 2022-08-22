@@ -58,16 +58,16 @@
 
 			<a href="#" onclick="export2xls()">Export Excel</a>
 			<br>
-			<a href="#" onclick="export2json()">Save Json</a>
+			<a href="#" onclick="export2json()">Export Json</a>
 
 			<div class="dropdown">
-				<button onclick="myDropFunction_Name()" class="dropbtn">Load Json</button>
+				<button onclick="myDropFunction_Name()" class="dropbtn">ReLoad Json</button>
 				<div id="myDropdown_Json" class="dropdown-content">
 					<input type="file" id="file_upload_Json" onchange="upload_Json()"/>
 				</div>
 			</div>
 			<br>
-			<a>Json's Name</a>
+			<a> Name</a>
 				<form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)">
 					<input type="text" name="name_du_chantier" value="navire" id="id_name_du_navire">
 				</form>
