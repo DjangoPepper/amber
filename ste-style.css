@@ -1,0 +1,226 @@
+	body {
+		font-family: "Lato", sans-serif;
+		transition: background-color .5s;
+	}
+
+	/* ################################################################### */
+	#main {
+		transition: margin .5s;
+		padding: 16px;
+		bottom: 10px;
+	}
+
+	/* ################################################################### */
+	.sidenavLeft {
+		height: 100%;
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		/* right: 0; */
+		/* background-color: #111; */
+		/* background-color: #7c6c6c; */
+		color: rgba(121, 10, 10, 0.685);
+		background-color: #7c6c6c;
+		overflow-x: hidden;
+		transition: 0.5s;
+		padding-top: 60px;
+	}
+
+	.sidenavLeft a {
+		padding: 8px 8px 8px 32px;
+		text-decoration: none;
+		font-size: 25px;
+		/* color: #818181; */
+		color: rgba(121, 10, 10, 0.685);
+		background-color: #7c6c6c;
+		display: block;
+		transition: 0.3s;
+	}
+
+	.sidenavLeft a:hover {
+		color: #f1f1f1;
+	}
+
+	.sidenavLeft .closebtn {
+		position: absolute;
+		top: 0;
+		right: 200px;
+		font-size: 36px;
+		margin-left: 50px;
+	}
+
+	@media screen and (max-height: 450px) {
+		.sidenavLeft {
+			padding-top: 15px;
+		}
+
+		.sidenavLeft a {
+			font-size: 18px;
+		}
+	}
+
+	/* ################################################################### */
+	.sidenavRight {
+		height: 100%;
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		/* left: 0; */
+		right: 0;
+		/* background-color: #111; */
+		background-color: #7c6c6c;
+		overflow-x: hidden;
+		transition: 0.5s;
+		padding-top: 60px;
+	}
+
+	.sidenavRight a {
+		padding: 8px 8px 8px 32px;
+		text-decoration: none;
+		font-size: 25px;
+		/* color: #818181; */
+		color: #582bac;
+		display: block;
+		transition: 0.3s;
+	}
+
+	.sidenavRight a:hover {
+		color: #f1f1f1;
+	}
+
+	.sidenavRight .closebtn {
+		position: absolute;
+		top: 0;
+		right: 25px;
+		font-size: 36px;
+		margin-left: 50px;
+	}
+
+	@media screen and (max-height: 450px) {
+		.sidenavRight {
+			padding-top: 15px;
+		}
+
+		.sidenavRight a {
+			font-size: 18px;
+		}
+	}
+
+	/* ################################################################### */
+	#menuslateral {
+		font-size: 15px;
+		cursor: pointer;
+		padding: 16px;
+		/* justify-content: space-between; */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	/* ########################################################################## */
+
+	/* ################################################################### */
+	.Totaux {
+		position: fixed;
+		padding: 14px 36px;
+		font-weight: 25;
+		bottom: 1px;
+		color: rgba(121, 10, 10, 0.685);
+		background-color: #7c6c6c;
+		letter-spacing: 4px;
+		font-size: 10px;
+		width: 100vw;
+		text-align: center;
+		text-transform: uppercase;
+		/* text-decoration: overline #976b6a; */
+		;
+	}
+
+	/* ################################################################### */
+	#topinav {
+		/* background-color: #333; */
+		background-color: #7c6c6c;/*		dark grey*/
+		position: fixed;
+		text-align: center;
+		top: 0;
+		width: 100%;
+		display: block;
+		transition: top 0.3s;
+	}
+
+	#topinav a {
+		float: left;
+		display: block;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 15px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+
+	#topinav a:hover {
+		background-color: #ddd;
+		color: blue;
+	}
+
+	/* ################################################################### */
+	.dropbtn {
+		/*background-color: #3498DB;
+		color: white;*/
+		color: rgba(121, 10, 10, 0.685);
+		/*red*/
+		background-color: #7c6c6c;/*					dark grey*/
+		/* padding: 16px;
+		font-size: 16px; */
+		border: none;
+		cursor: pointer;
+
+		padding: 8px 8px 8px 32px;
+		text-decoration: none;
+		font-size: 25px;
+
+	}
+
+	.dropbtn:hover,
+	.dropbtn:focus {
+		/*background-color: #2980B9;*/
+		color: #f1f1f1;/*					very light grey*/
+		/*grey*/
+	}
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;/*					very light grey*/
+		/*grey*/
+		min-width: 160px;
+		overflow: auto;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);/*light grey*/
+		z-index: 1;
+	}
+
+	.dropdown-content a {
+		/*color: black;*/
+		color: rgba(121, 10, 10, 0.685);/*	dark red*/
+		background-color: #7c6c6c;/*		dark grey*/
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+
+	.dropdown a:hover {
+		/*background-color: yellow;*/
+		color: #f1f1f1;/*					very light grey*/
+	}
+
+	.show {
+		display: block;
+	}
