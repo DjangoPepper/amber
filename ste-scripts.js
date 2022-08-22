@@ -1,7 +1,7 @@
 const btn_dep = document.querySelector('#btndep');
-const valeur_de_dep = document.querySelector('#depart');
+const valeur_de_dep = document.querySelector('#id_origin');
 const btn_des = document.querySelector('#btndes');
-const valeur_de_des = document.querySelector('#destination');
+const valeur_de_des = document.querySelector('#id_final');
 
 var fileToUploadSelected = false;
 var fileUpLoaded = false;
@@ -20,10 +20,6 @@ var jsDlenght = 0;
 var filename = "";
 var Display_reload = false;
 var filter_display = 0;
-
-var cejour = 0;
-/* let date_filename = `any_name_${(new Date().toJSON().slice(0,10))}`
-console.log(`Add here ${date_filename}`); */
 
 //Medthod to search anything
 function filter() {
@@ -357,15 +353,6 @@ function export2json() {
 	document.body.removeChild(a);
 }
 
-//Method for today's date
-/* function aujourdhui(){
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	var yyyy = today.getYear();
-
-	// today = mm + '/' + dd + '/' + yyyy;
-	cejour = yy + mm ++ dd
-	// document.write(today);
-	jsonfileNameToeXport = cejour + id_name_du_navire.value + ".json";
-} */
+function submitform() {
+	document.myform.submit();
+}
