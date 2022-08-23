@@ -12,36 +12,25 @@
 
 <body>
 	<div id="topinav">
-		<input type="text" id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
-		<input type="text" id="myinput_search" onkeyup="filter()" placeholder="Search.." title="Type in to find">
-		<input type="text" id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
-		<input type="text" id="myinput_pointage" onkeyup="filter()" placeholder="My Point" title="Type in to point">
-<!-- 		<form name="myform_ori" id="myform_ori" method="post">
-			<select id="id_origine" name="sel_origine" onchange="submitform()" ;>
-				<option value="99"> depuis </option>
-				<option value="0" class="class_origine" onclick="click_origine()">Stock</option>
-				<option value="1" class="class_origine" onclick="click_origine()">Cale1</option>
-				<option value="2" class="class_origine" onclick="click_origine()">Cale2</option>
-				<option value="3" class="class_origine" onclick="click_origine()">Cale3</option>
-				<option value="4" class="class_origine" onclick="click_origine()">Cale4</option>
-				<option value="5" class="class_origine" onclick="click_origine()">Cale5</option>
-			</select>
-		</form> -->
-			<form name="myform_final" id="myform_final" method="post">
-				<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
-					<option value="99"> vers </option>
-					<option value="0" class="class_final" onclick="click_final()">Stock</option>
-					<option value="1" class="class_final" onclick="click_final()">Cale1</option>
-					<option value="2" class="class_final" onclick="click_final()">Cale2</option>
-					<option value="3" class="class_final" onclick="click_final()">Cale3</option>
-					<option value="4" class="class_final" onclick="click_final()">Cale4</option>
-					<option value="5" class="class_final" onclick="click_final()">Cale5</option>
-				</select>
-				<!-- <button id="btndes"> REFRESH </button> -->
-			</form>
-
+		<input type="text" size=5  id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
+		<input type="text" size=10 id="myinput_search" onkeyup="filter()" placeholder="Search.." title="Type in to find">
+		<input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
+		<!-- <input type="text" size=4 id="myinput_pointage" onkeyup="filter()" placeholder="My Point" title="Type in to point"> -->
+		<form name="myform_final" id="myform_final" method="post">
+			<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
+				<option value="99"> vers </option>
+				<option value="0" class="class_final" onclick="click_final()">Stock</option>
+				<option value="1" class="class_final" onclick="click_final()">Cale1</option>
+				<option value="2" class="class_final" onclick="click_final()">Cale2</option>
+				<option value="3" class="class_final" onclick="click_final()">Cale3</option>
+				<option value="4" class="class_final" onclick="click_final()">Cale4</option>
+				<option value="5" class="class_final" onclick="click_final()">Cale5</option>
+			</select>			<!-- <button id="btndes"> REFRESH </button> -->
+		</form>
 	</div>
+
 	<br>
+
 	<div>
 		<p id="menuslateral">
 			<span onclick="openNavLeft()">&#9776; Files</span>

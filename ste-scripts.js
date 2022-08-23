@@ -91,6 +91,7 @@ function filter() {
 			value_nb++;
 			if (value_nb > 0) {
 				value_cu = value_cu + (1 * poi_txtValue);
+				value_cu = Math.round(value_cu*100)/100;
 			}
 		}
 		else {
