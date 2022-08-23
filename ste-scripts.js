@@ -100,6 +100,8 @@ function filter() {
 	}
 }
 
+
+
 //Here are theworking functions
 btn_des.onclick = (event) => {
 	event.preventDefault();
@@ -357,3 +359,30 @@ function export2json() {
 function submitform() {
 	document.myform.submit();
 }
+
+
+// // Import stylesheets
+// import "./style.css";
+
+const main = document.getElementById("textContent");
+const btnZoomIn = document.getElementById("zoomIn");
+const btnZoomOut = document.getElementById("zoomOut");
+
+let zoomLevel = 1;
+let rootFontSize = 16;
+
+btnZoomIn.addEventListener("click", () => {
+if (zoomLevel < 2) {
+		zoomLevel = zoomLevel + 0.1;
+		rootFontSize = rootFontSize + 2;
+	textContent.style.fontSize = `${rootFontSize}px`;
+}
+});
+
+btnZoomOut.addEventListener("click", () => {
+	if (zoomLevel > 1) {
+		zoomLevel = zoomLevel - 0.1;
+		rootFontSize = rootFontSize - 2;
+	textContent.style.fontSize = `${rootFontSize}px`;
+}
+});

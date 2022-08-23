@@ -48,14 +48,19 @@ function submitform() {
 	document.myform.submit();
 }
 /* When the user clicks on the button,toggle between hiding and showing the dropdown content */
-function myDropFunction_Excel() {
+/* function myDropFunction_Excel() {
 	document.getElementById("myDropdown_Excel").classList.toggle("show");
+} */
+function myDropFunction_Excel() {
+	document.getElementById('file_upload_Excel').click();
 }
 
-function myDropFunction_Name() {
-	document.getElementById("myDropdown_Json").classList.toggle("show");
+// function myDropFunction_Name() {
+// 	document.getElementById("myDropdown_Json").classList.toggle("show");
+// }
+function myDropFunction_Json() {
+	document.getElementById('file_upload_Json').click();
 }
-
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
