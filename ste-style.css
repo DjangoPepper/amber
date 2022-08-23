@@ -120,25 +120,39 @@
 		align-items: center;
 	}
 
-	/* ########################################################################## */
 
 	/* ################################################################### */
 	.Totaux {
 		position: fixed;
 		padding: 14px 36px;
 		font-weight: 25;
-		bottom: 1px;
+
+		/* bottom: 1px; */
+		left: 0;
+		bottom: 0;
+
 		color: rgba(121, 10, 10, 0.685);
 		background-color: #7c6c6c;
 		letter-spacing: 4px;
 		font-size: 10px;
-		width: 100vw;
+
+		/* width: 100vw; */
+		width: 100%;
+
 		text-align: center;
 		text-transform: uppercase;
 		/* text-decoration: overline #976b6a; */
 		;
 	}
-
+/* 	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: red;
+		color: white;
+		text-align: center;
+	} */
 	/* ################################################################### */
 	#topinav {
 		/* background-color: #333; */
@@ -224,7 +238,7 @@
 	.show {
 		display: block;
 	}
-	
+
 	#myform_Name {
 		text-align: center;
 		min-width: 60px;

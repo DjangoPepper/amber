@@ -361,10 +361,11 @@ function submitform() {
 }
 
 
+// ############################################################################ 2OOM
 // // Import stylesheets
 // import "./style.css";
 
-const main = document.getElementById("textContent");
+var main = document.getElementById("main");
 const btnZoomIn = document.getElementById("zoomIn");
 const btnZoomOut = document.getElementById("zoomOut");
 
