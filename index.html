@@ -14,14 +14,9 @@
 
 <body>
 	<div id="topinav">
-		<button id="zoomIn">➕ Zoom In </button>
-		<button id="zoomOut">➖ Zoom Out</button>
-
-		<input type="text" size=5  id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
-		<input type="text" size=10 id="myinput_search" onkeyup="filter()" placeholder="Search.." title="Type in to find">
-		<input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
-		<input type="text" size=4 id="myinput_pointage" onkeyup="filter()" placeholder="My Point" title="Type in to point">
-		<form name="myform_final" id="myform_final" method="post">
+		<!-- <button id="zoomIn">➕ Zoom In </button> -->
+		<!-- <button id="zoomOut">➖ Zoom Out</button> -->
+		<!-- <form name="myform_final" id="myform_final" method="post"> -->
 			<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
 				<option value="99"> vers </option>
 				<option value="0" class="class_final" onclick="click_final()">Stock</option>
@@ -31,7 +26,11 @@
 				<option value="4" class="class_final" onclick="click_final()">Cale4</option>
 				<option value="5" class="class_final" onclick="click_final()">Cale5</option>
 			</select>			<!-- <button id="btndes"> REFRESH </button> -->
-		</form>
+		<!-- </form> -->
+		<input type="text" size=5  id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
+		<input type="text" size=10 id="myinput_search" onkeyup="filter()" placeholder="Search.." title="Type in to find">
+		<!-- <input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter"> -->
+		<!-- <input type="text" size=4 id="myinput_pointage" onkeyup="filter()" placeholder="My Point" title="Type in to point"> -->
 	</div>
 
 	<br>
@@ -87,8 +86,18 @@
 
 <footer>
 	<p class="Totaux">
+		<input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
 		<span id="id_nb"></span> Piéce(s)
 		<span id="id_cu"></span> Tonne(s)
+		<select id="id_display" name="sel_display";><!-- onchange="submitform()";> -->
+			<option value="99"> Affiche </option>
+			<option value="0" class="class_sel_display" onclick="filter()">Stock</option>
+			<option value="1" class="class_sel_display" onclick="filter()">Cale1</option>
+			<option value="2" class="class_sel_display" onclick="filter()">Cale2</option>
+			<option value="3" class="class_sel_display" onclick="filter()">Cale3</option>
+			<option value="4" class="class_sel_display" onclick="filter()">Cale4</option>
+			<option value="5" class="class_sel_display" onclick="filter()">Cale5</option>
+		</select>
 <!--
 		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> &nbsp &nbsp &nbsp
 		DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>

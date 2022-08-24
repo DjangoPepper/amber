@@ -186,7 +186,8 @@ function upload_Json() {
 	var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
 	if (extension == '.json' || extension == '.JSON') {
 		//Here calling another method to read excel file into json
-		excelFileToJSON(files[0]);
+		// excelFileToJSON(files[0]);
+		displayJsonToHtmlTable(files);
 		fileToimportSelected = true;
 		fileimported = true;
 	} else {
