@@ -21,6 +21,7 @@ var filename = "";
 var Display_reload = false;
 var filter_display = 0;
 
+
 //Medthod to search anything
 function filter() {
 	var input_search, filter_search, input_display, filter_display, table, tr, td, i, poi_txtValue, txtValue, rangvalue;
@@ -100,8 +101,6 @@ function filter() {
 	}
 }
 
-
-
 //Here are theworking functions
 btn_des.onclick = (event) => {
 	event.preventDefault();
@@ -154,6 +153,7 @@ function upload_Excel() {
 	if (files.length == 0) {
 		fileToUploadSelected = false;
 		fileUpLoaded = false;
+		myFunctionVisuTopiNavHidden();
 		alert("Please choose any file...");
 		return;
 	}
@@ -164,6 +164,8 @@ function upload_Excel() {
 		excelFileToJSON(files[0]);
 		fileToUploadSelected = true;
 		fileUpLoaded = true;
+		myFunctionVisuTopiNavVisible();
+
 	} else {
 		alert("Please select a valid excel file.");
 		fileToUploadSelected = false;
@@ -387,3 +389,14 @@ btnZoomOut.addEventListener("click", () => {
 	textContent.style.fontSize = `${rootFontSize}px`;
 }
 });
+
+
+
+function myFunctionVisuTopiNavHidden() {
+	document.getElementById("topinav").style.visibility = "hidden";
+}
+function myFunctionVisuTopiNavVisible() {
+	document.getElementById("topinav").style.visibility = "visible";
+}
+
+myFunctionVisuTopiNavHidden();
