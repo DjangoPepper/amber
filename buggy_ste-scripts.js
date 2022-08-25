@@ -28,21 +28,20 @@ function filter() {
 
 	input_search = document.getElementById("myinput_search");
 	filter_search = input_search.value.toUpperCase();
-	input_display = document.getElementById("myinput_display");
+	input_display = document.getElementById("id_myinput_display");
 	filter_display = input_display.value.toUpperCase();
 	table = document.getElementById("display_excel_data");
 	tr = table.getElementsByTagName("tr");
+	document.getElementById("id_nb").innerHTML = (value_nb);
+	document.getElementById("id_cu").innerHTML = (value_cu);
+
 	value_nb = -1;
 	value_cu = 0;
 	poi_txtValue = 0;
 	ran_txtValue = 0;
-	document.getElementById("id_nb").innerHTML = (value_nb);
-	document.getElementById("id_cu").innerHTML = (value_cu);
-
-
 	/*
 		if (Selected_Dep == true){
-			input_display = document.getElementById("myinput_display");
+			input_display = document.getElementById("id_myinput_display");
 		} else {
 			input_display = (valeur_de_dep.selectedIndex - 1)
 		}
@@ -52,7 +51,7 @@ function filter() {
 		//input_display = (valeur_de_dep.selectedIndex - 1);
 		input_display = filter_display;
 	} else {
-		input_display = document.getElementById("myinput_display");
+		input_display = document.getElementById("id_myinput_display");
 	}
 
 
@@ -93,7 +92,7 @@ function filter() {
 			value_nb++;
 			if (value_nb > 0) {
 				value_cu = value_cu + (1 * poi_txtValue);
-				value_cu = Math.round(value_cu*100)/100;
+				value_cu = Math.round(value_cu * 100) / 100;
 			}
 		}
 		else {
@@ -115,7 +114,7 @@ function valide_Dep(x) {
 		Selected_Dep = true;
 		//alert(valeur_de_dep.selectedIndex - 1);
 		document.getElementById("choix_Dep").innerHTML = (valeur_de_dep.selectedIndex - 1);
-		document.getElementById("myinput_display").innerHTML = (valeur_de_dep.selectedIndex - 1);
+		document.getElementById("id_myinput_display").innerHTML = (valeur_de_dep.selectedIndex - 1);
 	}
 }
 
@@ -235,11 +234,11 @@ function displayJsonToHtmlTable(jsonData) {
 				+ '<td>' + row["Poids"] + '</td><td>' + row["Position"] + '</td></tr>';
 		}
 		//add an empty last line
-		htmlData += '<tr>	 <td>' +(jsonData.length+1)+ '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-							'<td>' +""+ '</td>' +""+
-					'</td></tr>';
+		htmlData += '<tr>	 <td>' + (jsonData.length + 1) + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'<td>' + "" + '</td>' + "" +
+			'</td></tr>';
 		table.innerHTML = htmlData;
 		// console.log(htmlData)
 	} else {
@@ -260,86 +259,83 @@ function showNewDestination(rangNewDest) {
 	filter();
 }
 
-function formatDate(d)
-{
-    //get the month
-    var month = d.getMonth();
-    //get the day
-    //convert day to string
-    var day = d.getDate().toString();
-    //get the year
-    var year = d.getFullYear();
+function formatDate(d) {
+	//get the month
+	var month = d.getMonth();
+	//get the day
+	//convert day to string
+	var day = d.getDate().toString();
+	//get the year
+	var year = d.getFullYear();
 
-    //pull the last two digits of the year
-    year = year.toString().substr(-2);
+	//pull the last two digits of the year
+	year = year.toString().substr(-2);
 
-    //increment month by 1 since it is 0 indexed
-    //converts month to a string
-    month = (month + 1).toString();
+	//increment month by 1 since it is 0 indexed
+	//converts month to a string
+	month = (month + 1).toString();
 
-    //if month is 1-9 pad right with a 0 for two digits
-    if (month.length === 1)
-    {
-        month = "0" + month;
-    }
+	//if month is 1-9 pad right with a 0 for two digits
+	if (month.length === 1) {
+		month = "0" + month;
+	}
 
-    //if day is between 1-9 pad right with a 0 for two digits
-    if (day.length === 1)
-    {
-        day = "0" + day;
-    }
+	//if day is between 1-9 pad right with a 0 for two digits
+	if (day.length === 1) {
+		day = "0" + day;
+	}
 
-    //return the string "MMddyy"
-    return year + month + day;
+	//return the string "MMddyy"
+	return year + month + day;
 }
 
 function export2xls() {
 
-			// date file's name to export
-			var d = new Date();
-			// var jsonfileNameToeXport = formatDate(d)+"_"+ id_name_du_navire.value + ".xlsx";
+	// date file's name to export
+	var d = new Date();
+	// var jsonfileNameToeXport = formatDate(d)+"_"+ id_name_du_navire.value + ".xlsx";
 
-			var createXLSLFormatObj = [];
-			/* XLS Head Columns */
-			var xlsHeader = ["Rang", "Référence", "Poids", "Position"];
+	var createXLSLFormatObj = [];
+	/* XLS Head Columns */
+	var xlsHeader = ["Rang", "Référence", "Poids", "Position"];
 
-			createXLSLFormatObj.push(xlsHeader);
-			$.each(jsonData, function (index, value) {
-				var innerRowData = [];
-				$("tbody").append('<tr><td>' + value.Rang + '</td><td>' + value.Référence + '</td><td>' + value.Poids + '</td><td>' + value.Position +'</td></tr>');
-				$.each(value, function (ind, val) {
-					innerRowData.push(val);
-				});
-				createXLSLFormatObj.push(innerRowData);
-			});
+	createXLSLFormatObj.push(xlsHeader);
+	$.each(jsonData, function (index, value) {
+		var innerRowData = [];
+		$("tbody").append('<tr><td>' + value.Rang + '</td><td>' + value.Référence + '</td><td>' + value.Poids + '</td><td>' + value.Position + '</td></tr>');
+		$.each(value, function (ind, val) {
+			innerRowData.push(val);
+		});
+		createXLSLFormatObj.push(innerRowData);
+	});
 
 
-			/* File Name */
-			// var filename = id_name_du_navire.value + ".xls";
-			var filename = formatDate(d)+"_"+ id_name_du_navire.value + ".xlsx";
-			//filename = aujourdhui();
+	/* File Name */
+	// var filename = id_name_du_navire.value + ".xls";
+	var filename = formatDate(d) + "_" + id_name_du_navire.value + ".xlsx";
+	//filename = aujourdhui();
 
-			/* Sheet Name */
-			var ws_name = "FirstSheet";
+	/* Sheet Name */
+	var ws_name = "FirstSheet";
 
-			if (typeof console !== 'undefined'){
-				console.log(new Date());
-				var wb = XLSX.utils.book_new();
-				var	ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
-			}
-			/* Add worksheet to workbook */
-			XLSX.utils.book_append_sheet(wb, ws, ws_name);
+	if (typeof console !== 'undefined') {
+		console.log(new Date());
+		var wb = XLSX.utils.book_new();
+		var ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+	}
+	/* Add worksheet to workbook */
+	XLSX.utils.book_append_sheet(wb, ws, ws_name);
 
-			/* Write workbook and Download */
-			if (typeof console !== 'undefined') {
-				console.log(new Date());
-				XLSX.writeFile(wb, filename);
-			}
+	/* Write workbook and Download */
+	if (typeof console !== 'undefined') {
+		console.log(new Date());
+		XLSX.writeFile(wb, filename);
+	}
 
-			if (typeof console !== 'undefined') {
-				console.log(new Date());
-			}
-		// });
+	if (typeof console !== 'undefined') {
+		console.log(new Date());
+	}
+	// });
 }
 
 //Method to export current Json file into a named file
@@ -352,7 +348,7 @@ function export2json() {
 	);
 
 	var d = new Date();
-	var jsonfileNameToeXport = formatDate(d)+"_"+ id_name_du_navire.value + ".json";
+	var jsonfileNameToeXport = formatDate(d) + "_" + id_name_du_navire.value + ".json";
 	// jsonfileNameToeXport = id_name_du_navire.value + ".json";
 	a.setAttribute("download", jsonfileNameToeXport);
 	document.body.appendChild(a);
@@ -377,19 +373,19 @@ let zoomLevel = 1;
 let rootFontSize = 16;
 
 btnZoomIn.addEventListener("click", () => {
-if (zoomLevel < 2) {
+	if (zoomLevel < 2) {
 		zoomLevel = zoomLevel + 0.1;
 		rootFontSize = rootFontSize + 2;
-	textContent.style.fontSize = `${rootFontSize}px`;
-}
+		textContent.style.fontSize = `${rootFontSize}px`;
+	}
 });
 
 btnZoomOut.addEventListener("click", () => {
 	if (zoomLevel > 1) {
 		zoomLevel = zoomLevel - 0.1;
 		rootFontSize = rootFontSize - 2;
-	textContent.style.fontSize = `${rootFontSize}px`;
-}
+		textContent.style.fontSize = `${rootFontSize}px`;
+	}
 });
 
 
@@ -401,4 +397,95 @@ function myFunctionVisuTopiNavVisible() {
 	document.getElementById("topinav").style.visibility = "visible";
 }
 
-myFunctionVisuTopiNavHidden();
+function FunctionChange(param){
+	var valeur;
+	valeur = document.getElementById(param).value;
+	if(valeur == 1){ FunctionChange1(); }
+	if(valeur == 2){ FunctionChange2(); }
+}
+
+function FunctionChange1() {
+    document.getElementById('champs').value = "1";
+}
+
+function FunctionChange2() {
+    document.getElementById('champs').value = "2";
+}
+function filter2() {
+	var input_search, filter_search, input_display, filter_display, table, tr, td, i, poi_txtValue, txtValue, rangvalue;
+
+	input_search = document.getElementById("myinput_search");
+	filter_search = input_search.value.toUpperCase();
+	// input_display = document.getElementById("selection");
+	input_display = document.getElementById("id_myinput_display");
+	filter_display = input_display.value.toUpperCase();
+	table = document.getElementById("display_excel_data");
+	tr = table.getElementsByTagName("tr");
+	document.getElementById("id_nb").innerHTML = (value_nb);
+	document.getElementById("id_cu").innerHTML = (value_cu);
+
+	value_nb = -1;
+	value_cu = 0;
+	poi_txtValue = 0;
+	ran_txtValue = 0;
+	/*
+		if (Selected_Dep == true){
+			input_display = document.getElementById("id_myinput_display");
+		} else {
+			input_display = (valeur_de_dep.selectedIndex - 1)
+		}
+	*/
+	if (Display_reload == true) {
+		Display_reload = false;
+		//input_display = (valeur_de_dep.selectedIndex - 1);
+		input_display = filter_display;
+	} else {
+		input_display = document.getElementById("id_myinput_display");
+	}
+
+
+	for (i = 0; i < tr.length; i++) {
+		let shouldDisplay = true;
+		td_ran = tr[i].getElementsByTagName("td")[0];
+		td_ref = tr[i].getElementsByTagName("td")[1];
+		td_poi = tr[i].getElementsByTagName("td")[2];
+		td_pos = tr[i].getElementsByTagName("td")[3];
+
+		if (td_pos) {
+			txtValue = td_pos.textContent || td_pos.innerText;
+			if (txtValue.toUpperCase().indexOf(filter_display) < 0) {
+				shouldDisplay = false;
+			}
+		}
+
+		if (td_ref) {
+			txtValue = td_ref.textContent || td_ref.innerText;
+			if (txtValue.toUpperCase().indexOf(filter_search) < 0) {
+				shouldDisplay = false;
+			}
+		}
+
+		if (td_poi) {
+			poi_txtValue = td_poi.textContent || td_poi.innerText;
+		}
+
+		if (td_ran) {
+			ran_txtValue = td_ran.textContent || td_ran.innerText;
+			if (value_nb > 0) {
+				valeur_de_ran = 1 * ran_txtValue;
+			}
+		}
+
+		if (shouldDisplay) {
+			tr[i].style.display = "";
+			value_nb++;
+			if (value_nb > 0) {
+				value_cu = value_cu + (1 * poi_txtValue);
+				value_cu = Math.round(value_cu * 100) / 100;
+			}
+		}
+		else {
+			tr[i].style.display = "none";
+		}
+	}
+}

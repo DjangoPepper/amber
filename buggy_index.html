@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- TODO totaux doit etre vide pu 0 si display pas choisit
+<!-- TODO totaux doit etre vide pu 0 si display pas choisi
 	topinav ne doit pas appaitre si excel ou json pas  importé
-	import sur un seul clic
+	import json sur un seul clic
+	select au lieu de input sur totaux
+	main css trop long
 
 -->
+
 <head>
 	<meta charset="UTF-8">
-	<title>Amber slide menu</title>
+	<title>Amber Coils page</title>
 	<link rel="stylesheet" href="./ste-style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -17,18 +20,20 @@
 		<!-- <button id="zoomIn">➕ Zoom In </button> -->
 		<!-- <button id="zoomOut">➖ Zoom Out</button> -->
 		<!-- <form name="myform_final" id="myform_final" method="post"> -->
-			<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
-				<option value="99"> vers </option>
-				<option value="0" class="class_final" onclick="click_final()">Stock</option>
-				<option value="1" class="class_final" onclick="click_final()">Cale1</option>
-				<option value="2" class="class_final" onclick="click_final()">Cale2</option>
-				<option value="3" class="class_final" onclick="click_final()">Cale3</option>
-				<option value="4" class="class_final" onclick="click_final()">Cale4</option>
-				<option value="5" class="class_final" onclick="click_final()">Cale5</option>
-			</select>			<!-- <button id="btndes"> REFRESH </button> -->
+		<select id="id_final" name="sel_final" ;>
+			<!-- onchange="submitform()";> -->
+			<option value="99"> vers </option>
+			<option value="0" class="class_final" onclick="click_final()">Stock</option>
+			<option value="1" class="class_final" onclick="click_final()">Cale1</option>
+			<option value="2" class="class_final" onclick="click_final()">Cale2</option>
+			<option value="3" class="class_final" onclick="click_final()">Cale3</option>
+			<option value="4" class="class_final" onclick="click_final()">Cale4</option>
+			<option value="5" class="class_final" onclick="click_final()">Cale5</option>
+		</select> <!-- <button id="btndes"> REFRESH </button> -->
 		<!-- </form> -->
-		<input type="text" size=5  id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
-		<input type="text" size=10 id="myinput_search" onkeyup="filter()" placeholder="Search.." title="Type in to find">
+		<input type="text" size=5 id="myinput_rang" onkeyup="filter()" placeholder="Rang...." title="Type in to sort">
+		<input type="text" size=10 id="myinput_search" onkeyup="filter()" placeholder="Search.."
+			title="Type in to find">
 		<!-- <input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter"> -->
 		<!-- <input type="text" size=4 id="myinput_pointage" onkeyup="filter()" placeholder="My Point" title="Type in to point"> -->
 	</div>
@@ -46,7 +51,7 @@
 			<div class="dropdown">
 				<button onclick="myDropFunction_Excel()" class="dropbtn">Import Excel</button>
 				<div id="myDropdown_Excel" class="dropdown-content">
-					<input type="file" id="file_upload_Excel" onchange="upload_Excel()"/>
+					<input type="file" id="file_upload_Excel" onchange="upload_Excel()" />
 				</div>
 			</div>
 
@@ -57,14 +62,14 @@
 			<div class="dropdown">
 				<button onclick="myDropFunction_Name()" class="dropbtn">ReLoad Json</button>
 				<div id="myDropdown_Json" class="dropdown-content">
-					<input type="file" id="file_upload_Json" onchange="upload_Json()"/>
+					<input type="file" id="file_upload_Json" onchange="upload_Json()" />
 				</div>
 			</div>
 			<br>
 			<a> Name</a>
-				<!-- <form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)"></form> -->
-					<input type="text" name="name_du_chantier" value="MonNavire" id="id_name_du_navire">
-				</form>
+			<!-- <form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)"></form> -->
+			<input type="text" name="name_du_chantier" value="MonNavire" id="id_name_du_navire">
+			</form>
 		</div>
 		<div id="mySidenavRight" class="sidenavRight">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">&times;</a>
@@ -86,11 +91,15 @@
 
 <footer>
 	<p class="Totaux">
-		<!-- <input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter"> -->
 		<span id="id_nb"></span> Piéce(s)
 		<span id="id_cu"></span> Tonne(s)
-		<select id="myinput_display" name="sel_display" onchange="filter()";>
-			<option value="99"> Affiche </option>
+		<!-- <input type="text" size=7 id="id_myinput_display" onkeyup="filter()" placeholder="Display." title="Type in"> -->
+		<!-- <input type="text" size=7 id="champs" onkeyup="filter2()" placeholder="filter2." title="Type in" name="champs_name" value="0" /> -->
+		<!-- <form name='formulaire'> -->
+
+		<!-- <select id='selection' onchange="filter2();"> -->
+		<select id='id_myinput_display' onchange="filter2();">
+			<option value="">Choisissez une option</option>
 			<option value="0" >Stock</option>
 			<option value="1" >Cale1</option>
 			<option value="2" >Cale2</option>
@@ -98,10 +107,8 @@
 			<option value="4" >Cale4</option>
 			<option value="5" >Cale5</option>
 		</select>
-<!--
-		DEPART&nbsp&nbsp : &nbsp<span id="choix_Dep"></span> &nbsp &nbsp &nbsp
-		DESTINATION &nbsp : &nbsp<span id="choix_Des"></span>
- -->
+			<!-- <input type="submit" /> -->
+		<!-- </form> -->
 	</p>
 </footer>
 
