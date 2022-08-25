@@ -32,14 +32,14 @@ function filter() {
 	filter_display = input_display.value.toUpperCase();
 	table = document.getElementById("display_excel_data");
 	tr = table.getElementsByTagName("tr");
+
+	document.getElementById("id_nb").innerHTML = (value_nb);
+	document.getElementById("id_cu").innerHTML = (value_cu);
+
 	value_nb = -1;
 	value_cu = 0;
 	poi_txtValue = 0;
 	ran_txtValue = 0;
-	document.getElementById("id_nb").innerHTML = (value_nb);
-	document.getElementById("id_cu").innerHTML = (value_cu);
-
-
 	/*
 		if (Selected_Dep == true){
 			input_display = document.getElementById("myinput_display");
