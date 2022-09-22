@@ -62,6 +62,10 @@ function myDropFunction_Json() {
 	document.getElementById('file_upload_Json').click();
 }
 
+function myDropFunction_Json2() {
+	document.getElementById('file_upload_Json2').click();
+}
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
 	if (!event.target.matches('.dropbtn')) {

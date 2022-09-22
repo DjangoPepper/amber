@@ -2,7 +2,9 @@
 <html lang="en">
 <!-- TODO totaux doit etre vide pu 0 si display pas choisit
 	topinav ne doit pas appaitre si excel ou json pas  importé
-	import sur un seul clic
+	import json sur un seul clic
+	taille input name
+
 
 -->
 <head>
@@ -17,7 +19,7 @@
 		<!-- <button id="zoomIn">➕ Zoom In </button> -->
 		<!-- <button id="zoomOut">➖ Zoom Out</button> -->
 		<!-- <form name="myform_final" id="myform_final" method="post"> -->
-			<select id="id_final" name="sel_final";><!-- onchange="submitform()";> -->
+			<select id="id_final" name="sel_final" title="tittle_selction_final";><!-- onchange="submitform()";> -->
 				<option value="99"> vers </option>
 				<option value="0" class="class_final" onclick="click_final()">Stock</option>
 				<option value="1" class="class_final" onclick="click_final()">Cale1</option>
@@ -46,7 +48,7 @@
 			<div class="dropdown">
 				<button onclick="myDropFunction_Excel()" class="dropbtn">Import Excel</button>
 				<div id="myDropdown_Excel" class="dropdown-content">
-					<input type="file" id="file_upload_Excel" onchange="upload_Excel()"/>
+					<input type="file" id="file_upload_Excel" title="title_myDropdown_Excel" onchange="upload_Excel()"/>
 				</div>
 			</div>
 
@@ -57,18 +59,26 @@
 			<div class="dropdown">
 				<button onclick="myDropFunction_Name()" class="dropbtn">ReLoad Json</button>
 				<div id="myDropdown_Json" class="dropdown-content">
-					<input type="file" id="file_upload_Json" onchange="upload_Json()"/>
+					<input type="file" id="file_upload_Json" onchange="upload_Json()" title="title_myDropdown_Json"/>
 				</div>
 			</div>
 			<br>
 			<a> Name</a>
 				<!-- <form id="myform_Name" onsubmit="download(this['name_du_chantier'].value, this['text'].value)"></form> -->
-					<input type="text" name="name_du_chantier" value="MonNavire" id="id_name_du_navire">
-				</form>
+					<input type="text" name="name_du_chantier" value="Navire" placeholder="HolderNavire" id="id_name_du_navire">
+				<!-- </form> -->
+			<br><br><br>
+			<div class="dropdown">
+				<button onclick="myDropFunction_Name2()" class="dropbtn">ReLoad Json2</button>
+				<div id="myDropdown_Json2" class="dropdown-content">
+					<input type="file" id="file_upload_Json2" onchange="upload_Json2()" title="title_file_upload_Json2"/>
+				</div>
+			</div>
+			<br>
 		</div>
 		<div id="mySidenavRight" class="sidenavRight">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">&times;</a>
-			<a href="#"> </a>
+			<a href="#">_</a>
 			<a href="#">Coils</a>
 			<a href="#">HotCoils</a>
 			<a href="#">Slabs</a>
@@ -87,13 +97,13 @@
 <footer>
 	<p class="Totaux">
 		<!-- OPTION 1  -->
-		<input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter">
+		<!-- <input type="text" size=7 id="myinput_display" onkeyup="filter()" placeholder="Display." title="Type in to filter"> -->
 
 		<span id="id_nb"></span> Piéce(s)
 		<span id="id_cu"></span> Tonne(s)
 
 		<!-- OPTION 2 -->
-		<!-- <select id="myinput_display" onchange="filter()";>
+		<select id="myinput_display" onchange="filter()";>
 			<option value="99"> Affiche </option>
 			<option value="0" >Stock</option>
 			<option value="1" >Cale1</option>
@@ -101,7 +111,7 @@
 			<option value="3" >Cale3</option>
 			<option value="4" >Cale4</option>
 			<option value="5" >Cale5</option>
-		</select> -->
+		</select>
 
 	</p>
 </footer>

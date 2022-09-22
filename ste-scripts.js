@@ -33,9 +33,6 @@ function filter() {
 	table = document.getElementById("display_excel_data");
 	tr = table.getElementsByTagName("tr");
 
-	document.getElementById("id_nb").innerHTML = (value_nb);
-	document.getElementById("id_cu").innerHTML = (value_cu);
-
 	value_nb = -1;
 	value_cu = 0;
 	poi_txtValue = 0;
@@ -100,6 +97,8 @@ function filter() {
 			tr[i].style.display = "none";
 		}
 	}
+	document.getElementById("id_nb").innerHTML = (value_nb);
+	document.getElementById("id_cu").innerHTML = (value_cu);
 }
 
 //Here are theworking functions
@@ -174,8 +173,41 @@ function upload_Excel() {
 	}
 }
 
+//Method to open a file
+/* <htmml>
+<SPAN>
+	<input type='file' accept='text/plain' onchange='Function_openFile(event)'><br>
+</SPAN>
+</htmml>
+ */
+
+/* var Function_openFile = function(event) {
+	var input = event.target;
+	var reader = new FileReader();
+
+	reader.onload = function(){
+		var text = reader.result;
+		console.log(reader.result.substring(0, 200));
+	};
+
+	reader.readAsText(input.files[0]);
+} */
+
+function openFile() {
+	var vFile = document.getElementById("myfile").files[0];
+	var vReader = new FileReader();
+
+	vReader.readAsText(vFile);
+	vReader.onload = function(pEvent) {
+		var vContent = pEvent.target.result;
+		var vJson = JSON.parse(vContent);
+		var vResult = vJson.prenom + " " + vJson.nom + " (" + vJson.age + ")";
+		document.getElementById("mydiv").appendChild(document.createTextNode(vResult));
+	};
+}
+
 // Method to import a valid json file
-function upload_Json() {
+function upload_Json_ori() {
 	var files = document.getElementById('file_upload_Json').files;
 	if (files.length == 0) {
 		fileToimportSelected = false;
@@ -188,7 +220,42 @@ function upload_Json() {
 	if (extension == '.json' || extension == '.JSON') {
 		//Here calling another method to read excel file into json
 		// excelFileToJSON(files[0]);
-		displayJsonToHtmlTable(files);
+		// displayJsonToHtmlTable(files);
+		jsonData = JSON.parse(files[0].name);
+		fileToimportSelected = true;
+		fileimported = true;
+	} else {
+		alert("Please select a valid json file.");
+		fileToimportSelected = false;
+		fileimported = false;
+	}
+}
+
+function upload_Json(){
+	var files = document.getElementById('file_upload_Json').files;
+	if (files.length == 0) {
+		fileToimportSelected = false;
+		fileimported = false;
+		alert("Please choose any json file...");
+		return;
+	}
+	var filename = files[0].name;
+	var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+	if (extension == '.json' || extension == '.JSON') {
+		//Here calling  method to read the right json file
+		//var vFile = document.getElementById("myfile").files[0];
+		var vReader = new FileReader();
+
+		// vReader.readAsText(vFile);
+		vReader.readAsText(filename);
+		vReader.onload = function(pEvent) {
+			var vContent = pEvent.target.result;
+			var vJson = JSON.parse(vContent);
+			var vResult = vJson.Rang + " " + vJson.Référence + vJson.Poids + vjson.Position;
+			document.getElementById("mydiv").appendChild(document.createTextNode(vResult));
+		};
+
+		jsonData = JSON.parse(filename);
 		fileToimportSelected = true;
 		fileimported = true;
 	} else {
@@ -363,42 +430,18 @@ function export2json() {
 function submitform() {
 	document.myform.submit();
 }
+/*
+document.getElementById('file_upload_Json').addEventListener('change', CaChange);
 
-
-// ############################################################################ 2OOM
-// // Import stylesheets
-// import "./style.css";
-
-var main = document.getElementById("main");
-const btnZoomIn = document.getElementById("zoomIn");
-const btnZoomOut = document.getElementById("zoomOut");
-
-let zoomLevel = 1;
-let rootFontSize = 16;
-
-btnZoomIn.addEventListener("click", () => {
-if (zoomLevel < 2) {
-		zoomLevel = zoomLevel + 0.1;
-		rootFontSize = rootFontSize + 2;
-	textContent.style.fontSize = `${rootFontSize}px`;
-}
-});
-
-btnZoomOut.addEventListener("click", () => {
-	if (zoomLevel > 1) {
-		zoomLevel = zoomLevel - 0.1;
-		rootFontSize = rootFontSize - 2;
-	textContent.style.fontSize = `${rootFontSize}px`;
-}
-});
-
-
-
-function myFunctionVisuTopiNavHidden() {
-	document.getElementById("topinav").style.visibility = "hidden";
-}
-function myFunctionVisuTopiNavVisible() {
-	document.getElementById("topinav").style.visibility = "visible";
+function CaChange(event) {
+	var reader = new FileReader();
+	reader.onload = onReaderLoad;
+	reader.readAsText(event.target.files[0]);
 }
 
-myFunctionVisuTopiNavHidden();
+function onReaderLoad(event) {
+	console.log(event.target.result);
+	jsonData = JSON.parse(event.target.result);
+	alert_data(jsonData.Rang, jsonData.Référence, jsonData.Poids, jsonData.Position);
+}
+ */

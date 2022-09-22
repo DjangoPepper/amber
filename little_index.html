@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>little menu</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<a>Load a file : </a>
+<!-- <SPAN id="id_load_file">
+	<input type="file" id="id_input_file_load_string" title="title_my_string_input" onchange="Function_load_Binary_string()"/>
+</SPAN> -->
+<SPAN>
+	<input type="file" id="id_input_file_load_text" title="title_my_text_input" accept="text/plain" onchange="Function_openFile(event)">
+	<br>
+</SPAN>
+</html>
+
+
+
+<script>
+var Function_openFile = function(event) {
+	var input = event.target;
+	var reader = new FileReader();
+
+	reader.onload = function(){
+		var text = reader.result;
+		console.log(reader.result.substring(0, 100));
+	};
+
+	reader.readAsText(input.files[0]);
+}
+
+function Function_load_Binary_string(file) {
+	try {
+		var reader = new FileReader();
+		reader.readAsBinaryString(file);
+		reader.onload = function (e) {
+			jsondata = e.target.result;
+			// var workbook = XLSX.read(data, {
+			// 	type: 'binary'
+			// });
+			// var result = {};
+			// var firstSheetName = workbook.SheetNames[0];
+			//reading only first sheet data
+			// jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+			//displaying the json result into HTML table
+			displayJsonToHtmlTable(jsonData);
+		}
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+function upload_Excel() {
+	var files = document.getElementById('file_upload_Excel').files;
+	if (files.length == 0) {
+		fileToUploadSelected = false;
+		fileUpLoaded = false;
+		myFunctionVisuTopiNavHidden();
+		alert("Please choose any file...");
+		return;
+	}
+	filename = files[0].name;
+	var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+	if (extension == '.XLS' || extension == '.XLSX') {
+		//Here calling another method to read excel file into json
+		excelFileToJSON(files[0]);
+		fileToUploadSelected = true;
+		fileUpLoaded = true;
+		myFunctionVisuTopiNavVisible();
+
+	} else {
+		alert("Please select a valid excel file.");
+		fileToUploadSelected = false;
+		fileUpLoaded = false;
+	}
+}
+</script>
