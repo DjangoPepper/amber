@@ -107,10 +107,10 @@ function filter() {
 //Here are theworking functions
 btn_des.onclick = (event) => {
 	event.preventDefault();
-	//valide_Dep();
+	valide_Dep();
 	valide_Des();
 };
-/*
+
 function valide_Dep(x) {
 	//upload();
 	if (fileToUploadSelected == true && fileUpLoaded == true) {
@@ -123,7 +123,7 @@ function valide_Dep(x) {
 
 Array.from(document.getElementsByClassName("class-Dep")).forEach(function (j) {
 	j.addEventListener("click", valide_Dep);
-}); */
+});
 
 function valide_Des(x) {
 	if (fileToUploadSelected == true) {
