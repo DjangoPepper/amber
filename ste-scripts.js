@@ -22,7 +22,7 @@ var Display_reload = false;
 var filter_display = 0;
 
 window.addEventListener("beforeunload", function(event) {
-	event.returnValue = "Write something clever here..";
+	event.returnValue = "T'as zapé un truc là..";
 });
 
 //Medthod to search anything
@@ -107,10 +107,10 @@ function filter() {
 //Here are theworking functions
 btn_des.onclick = (event) => {
 	event.preventDefault();
-	valide_Dep();
+	//valide_Dep();
 	valide_Des();
 };
-
+/*
 function valide_Dep(x) {
 	//upload();
 	if (fileToUploadSelected == true && fileUpLoaded == true) {
@@ -123,7 +123,7 @@ function valide_Dep(x) {
 
 Array.from(document.getElementsByClassName("class-Dep")).forEach(function (j) {
 	j.addEventListener("click", valide_Dep);
-});
+}); */
 
 function valide_Des(x) {
 	if (fileToUploadSelected == true) {
@@ -135,6 +135,7 @@ function valide_Des(x) {
 Array.from(document.getElementsByClassName("class-Des")).forEach(function (i) {
 	i.addEventListener("click", valide_Des);
 });
+
 
 function sortTable(n) {
 	const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
@@ -176,7 +177,7 @@ function upload_Excel() {
 	}
 }
 
-
+//Method to read json file
 function upload_Json(){
 	var files = document.getElementById('file_upload_Json').files;
 	if (files.length == 0) {
@@ -256,15 +257,17 @@ function displayJsonToHtmlTable(jsonData) {
 
 //Method pour deplacer une reference
 function showNewDestination(rangNewDest) {
-	//rangNewDest = rangNewDest+1;
-	jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
-	confirm("For rang : " + (rangNewDest + 1) +	//le rang commence à 1 pas à 0
-		" coils n° : " + jsonData[rangNewDest].Référence +
-		", New dest : " + jsonData[rangNewDest].Position
-	);
-	displayJsonToHtmlTable(jsonData);
-	Display_reload = true;
-	filter();
+	if (valeur_de_des.selectedIndex >= 1) {
+		jsonData[rangNewDest].Position = (valeur_de_des.selectedIndex - 1);
+		if (confirm(" Rang n° : " + jsonData[rangNewDest].Rang + " Référence n° : " + jsonData[rangNewDest].Référence + ", Destination : " + jsonData[rangNewDest].Position) == true ){
+				displayJsonToHtmlTable(jsonData);
+				Display_reload = true;
+				filter();
+		} else {
+		}
+	} else {
+		alert("Validez une destination");
+	}
 }
 
 function formatDate(d)
@@ -370,18 +373,3 @@ function export2json() {
 function submitform() {
 	document.myform.submit();
 }
-/*
-document.getElementById('file_upload_Json').addEventListener('change', CaChange);
-
-function CaChange(event) {
-	var reader = new FileReader();
-	reader.onload = onReaderLoad;
-	reader.readAsText(event.target.files[0]);
-}
-
-function onReaderLoad(event) {
-	console.log(event.target.result);
-	jsonData = JSON.parse(event.target.result);
-	alert_data(jsonData.Rang, jsonData.Référence, jsonData.Poids, jsonData.Position);
-}
- */
