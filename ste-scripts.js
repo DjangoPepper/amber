@@ -242,6 +242,7 @@ function upload_Json(){
 	var filename = files[0].name;
 	var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
 	if (extension == '.json' || extension == '.JSON') {
+		//
 		//Here calling  method to read the right json file
 		//var vFile = document.getElementById("myfile").files[0];
 		var vReader = new FileReader();
