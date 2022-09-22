@@ -57,7 +57,7 @@
 			<a href="#" onclick="export2json()">Export Json</a>
 
 			<div class="dropdown">
-				<button onclick="myDropFunction_Json()" class="dropbtn">ReLoad Json</button>
+				<button onclick="myDropFunction_Json()" class="dropbtn">Load Json</button>
 				<div id="myDropdown_Json" class="dropdown-content">
 					<input type="file" id="file_upload_Json" onchange="upload_Json()" title="title_myDropdown_Json"/>
 				</div>
@@ -68,12 +68,12 @@
 					<input type="text" name="name_du_chantier" value="Navire" placeholder="HolderNavire" id="id_name_du_navire">
 				<!-- </form> -->
 			<br><br><br>
-			<div class="dropdown">
+			<!-- <div class="dropdown">
 				<button onclick="myDropFunction_Name2()" class="dropbtn">ReLoad Json2</button>
 				<div id="myDropdown_Json2" class="dropdown-content">
 					<input type="file" id="file_upload_Json2" onchange="upload_Json2()" title="title_file_upload_Json2"/>
 				</div>
-			</div>
+			</div> -->
 			<br>
 		</div>
 		<div id="mySidenavRight" class="sidenavRight">
@@ -103,7 +103,7 @@
 		<span id="id_cu"></span> Tonne(s)
 
 		<!-- OPTION 2 -->
-		<select id="myinput_display" onchange="filter()";>
+		<select id="myinput_display" name="myinput_display_name" title="Title_myinput_display" onchange="filter()";>
 			<option value="99"> Affiche </option>
 			<option value="0" >Stock</option>
 			<option value="1" >Cale1</option>
