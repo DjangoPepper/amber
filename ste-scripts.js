@@ -164,7 +164,7 @@ function upload_Excel() {
 		excelFileToJSON(files[0]);
 		fileToUploadSelected = true;
 		fileUpLoaded = true;
-		myFunctionVisuTopiNavVisible();
+		// - fred 2209 myFunctionVisuTopiNavVisible();
 
 	} else {
 		alert("Please select a valid excel file.");
@@ -247,17 +247,18 @@ function upload_Json(){
 		var vReader = new FileReader();
 
 		// vReader.readAsText(vFile);
-		vReader.readAsText(filename);
+		var vContent = ''
 		vReader.onload = function(pEvent) {
-			var vContent = pEvent.target.result;
+			vContent += pEvent.target.result;
 			var vJson = JSON.parse(vContent);
 			var vResult = vJson.Rang + " " + vJson.Référence + vJson.Poids + vjson.Position;
 			document.getElementById("mydiv").appendChild(document.createTextNode(vResult));
 		};
-
-		jsonData = JSON.parse(filename);
-		fileToimportSelected = true;
-		fileimported = true;
+		// vReader.onend = function() {
+		// 	fileToimportSelected = true;
+		// 	fileimported = true;
+		// }
+		vReader.readAsText(files[0]);
 	} else {
 		alert("Please select a valid json file.");
 		fileToimportSelected = false;
